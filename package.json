@@ -1,0 +1,14 @@
+{
+  "name": "oracle_webphone",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "~3.2.6",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "mongoose": "~3.8.8",
+    "ejs": "~0.8.5",
+    "connect-flash": "~0.1.1",
+    "bcrypt-nodejs" : "latest"
+  }
+}
