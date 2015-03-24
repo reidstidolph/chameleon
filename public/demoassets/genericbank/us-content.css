@@ -1,0 +1,80 @@
+.productComparison tr.productHeadings td,
+.productComparison tr.productHeadings th
+{
+	padding:16px 0 7px;
+}
+#productComparison th h3,
+#fixed-table-header th h3
+{
+	padding:0 20px 10px 22px;
+}
+#productComparison th h3 span,
+#fixed-table-header th h3 span
+{
+	line-height:24px;
+}
+#productComparison th h3.premier span,
+#fixed-table-header th h3.premier span,
+#productComparison th h3.advance span,
+#fixed-table-header th h3.advance span
+{
+	line-height:20px;
+}
+.productComparison tr.productLinks td
+{
+	padding:0 0 11px;
+}
+.productComparison tr ul
+{
+	padding:0 20px 0 22px;
+}
+#productComparison tr ul li,
+#fixed-table-header tr ul li
+{
+	padding:0 7px 6px 0;
+	line-height:15px;
+}
+#productComparison tr.fourCol ul li,
+#fixed-table-header tr.fourCol ul li
+{
+	clear:both;
+}
+#productComparison tr ul li a,
+#fixed-table-header tr ul li a
+{
+	line-height:15px;
+	white-space:nowrap;
+}
+#productComparison tr.sectionType a.expand
+{
+	padding:3px 0 1px 35px;
+	line-height:24px!important;
+	white-space:normal!important;
+}
+#grid .grid_24 .premierFeatureBox
+{
+	background:#1d1060 url("/public/demoassets/genericbank/bg_footer_feature.gif") top left no-repeat;
+}
+#grid .grid_24 .premierFeatureBox p,
+#grid .grid .premierFeatureBox a.overlayLaunchLink
+{
+	color:#fff;
+}
+#grid .grid .premierFeatureBox a.overlayLaunchLink
+{
+	background-image:url("/public/demoassets/genericbank/icon_white_overlay_launch.gif")
+}
+#personal .jqmWindow .premierOverlay .productItem h3,
+#advance .jqmWindow .premierOverlay .productItem h3
+{
+	font-weight:normal;
+	color:#1d1060;
+	background:none;
+	padding:0 20px 25px 0;
+}
+#personal .jqmWindow .premierOverlay .grid_8 .quote p,
+#advance .jqmWindow .premierOverlay .grid_8 .quote p
+{
+	background-image:url("/public/demoassets/genericbank/leftQuote.gif");
+	color:#1d1060;
+}

@@ -1,0 +1,537 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* Universal Disclosure DIV, similar to DIV.smallPrint */
+
+@media screen
+{
+  #universalLegal
+  {
+	background:url("/public/demoassets/genericbank/border_grey.gif") left top no-repeat;
+	float:left;
+	margin:20px 0 0;
+	padding:21px 0 0;
+	width:100%;
+  }
+  #universalLegal p
+  {
+	font-size:68.75%;
+	padding:0 15px 5px 0;
+	line-height:17px;
+	color:#666;
+  }
+  #universalLegal p a
+  {
+	color:#666;
+  }
+  #universalLegal h2,
+  #universalLegal h3,
+  #universalLegal h4
+  {
+	font-size:87.5%;
+	padding:0 15px 5px 0;
+	line-height:18px;
+	color:#666;
+  }
+  #universalLegal p a:hover,
+  #universalLegal p a:active,
+  #universalLegal p a:focus
+  {
+	color:#db0011;
+  }
+  #universalLegal table
+  {
+	width: 940px;
+  }
+  
+  .redBtn {cursor:pointer;}
+  #welcomeRow h2 {float: left;}
+  sup { font-size: 75%; }
+  #smallPrint sup { font-size: 100%; }
+  img.ehl, img.adobebtn { vertical-align: baseline !important; } /* align logo with copy */
+  img.adobebtn2 { vertical-align: middle !important; } /* align logo with copy for T6 */
+  dt, dd, address {
+	line-height:18px;
+	padding:0 0 10px;
+	color:#333;
+	font-size:75%;
+  }
+  dt { font-weight: bold; }
+  dt,dd {display: inline;}
+  dd ul {font-size: 130%; margin-top: 10px; margin-left: 10px;}
+  div.toTop{margin-bottom: 30px;}
+  div.toTop a{float: right !important;}
+  dd div.toTop{font-size: 125%; margin-bottom: 0px;}
+  address { font-style:normal; margin-left: 10px;}
+  #meta .legal { float: right; text-align: right; line-height: 175%;} /* align legal right */
+  #treeNav sup { font-size: 65%; }
+  #grid .contentItem h4 a {line-height: 110%;}
+  #grid .contentItem h5 a {background: url("/public/demoassets/genericbank/lrg_red_arrow.gif") right bottom no-repeat;
+padding: 0 11px 0 0; line-height: 110%;}
+  /* for Premier Toggle */
+  .toggleGroup li.open .pToggleTarget
+  {
+	display: block;
+	line-height: 125%;
+	padding: 10px 5px 10px 0;
+  }
+  .toggleGroup li.open .pToggleTarget p
+  {
+	font-size: 100% !important;
+	line-height: 125%;
+  }
+  .toggleGroup li.open .pToggleTarget ul
+  {
+	font-size: 100% !important;
+	display: block !important;
+	padding-left: 25px !important;
+	list-style-type:disc !important;
+  }
+  .toggleGroup li.open .pToggleTarget ul li
+  {
+	font-size: 100% !important;
+	display: block !important;
+	padding-left: 5px !important;
+	list-style-type:disc !important;
+  }
+  .toggleGroup li.open .pToggleTarget a
+  {
+	padding:0 0 0 0  !important;
+	background: none !important;
+	font-weight: normal !important;
+	text-decoration: underline !important;
+  }
+  .toggleGroup li.open .pToggleTarget a:hover,.toggleGroup li.open .pToggleTarget a:focus
+  {
+	color:#db0011 !important;
+  }
+  .toggleGroup li.closed a.pToggleTrigger
+  {
+	padding:0 15px 0 0  !important;
+	background:url("/public/demoassets/genericbank/sml_red_arrow.gif") no-repeat right center !important;
+  }
+  .toggleGroup li.closed .pToggleTarget
+  {
+	display: none; 
+  }
+  .toggleGroup li.open a.pToggleTrigger
+  {
+	padding:0 25px 0 0  !important;
+	background:url("/public/demoassets/genericbank/productArrowOver.gif") no-repeat right center !important;
+  }
+  
+  table#fiveBoxDisclosure{ margin: 0px 0px 5px 0px; }
+  #fiveBoxDisclosureHygiene { margin: 0px 0px 25px 0px; }
+  table#fiveBoxDisclosure thead tr th, table#fiveBoxDisclosureHygiene thead tr th { background-color: transparent; padding: 2px 0px; color: rgb(102,102,102); font-size: 68.75%; }
+  table#fiveBoxDisclosure tbody tr td,table#fiveBoxDisclosureHygiene tbody tr td
+  {
+	background-color: transparent;
+	text-align: center;
+	vertical-align: top;
+	font-size: 66%;
+	padding: 9px 5px;
+	color: rgb(102,102,102);
+	border: solid 1px rgb(102,102,102);
+	line-height: 1.2em;
+  }
+  table#fiveBoxDisclosureCMB { margin: 5px 0px 5px 0px; }
+  table#fiveBoxDisclosureCMB thead tr th { background-color: transparent; padding: 2px 0px; color: rgb(102,102,102); font-size: 68.75%; }
+  table#fiveBoxDisclosureCMB tbody tr td
+  {
+	background-color: transparent;
+	text-align: center;
+	vertical-align: top;
+	font-size: 60%;
+	padding: 9px 5px;
+	color: rgb(102,102,102);
+	border: solid 1px rgb(102,102,102);
+	line-height: 1.1em;
+  }
+  /* New Premier Logo Fix */
+  #premier #propositionDetails .branding
+  {
+	bottom:90px;
+  }
+  #premier #productDetails .branding
+  {
+	bottom:60px;
+  }
+  .browserWarning {
+	  background-color: #FF9 !important;
+	  border: inset 2px #FF9 !important;
+	  color: #000 !important;
+	  font-size: 75% !important;
+	  padding: 8px !important;
+	  margin-bottom: 5px !important;
+	  line-height: 135% !important;
+	  font-weight: normal !important;
+  }
+  .browserWarning a {
+	  text-decoration: underline !important;
+	  display: inline !important;
+	  float: none !important;
+	  font-weight: bold !important;
+  }
+  .browserWarning a:focus, .browserWarning a:hover {
+	  color: #F00 !important;
+  }
+  
+  /* June 4 updates from Verity, intended to be placed into HTS Themes
+  once available and removed from overrides file LH */
+  
+  /* fly out fix, for layout.css */
+   #onlineBanking ul #logon ul li a
+  {
+                  float:none;
+                  display:inline;
+  }
+  #onlineBanking form hr
+  {
+                  border:none;
+                  border-bottom:9px solid #626469;
+                  border-top:1px solid #fff;
+  }
+  /* CMB Masthead Navigation wrap fix */
+  #sections li a.small
+  {
+                  padding:20px 13px 17px;
+  }
+  #sections li a.small strong
+  {
+                  font-size:125%;
+  }
+  /* intended for content.css */
+  #productDetails h2
+  {
+                  line-height:28px;
+                  bottom:75px;
+  }
+  /* Proposition Heading fix for right doormat */
+  #sections .doormatRight .info p {
+	  font-size: 130%;
+  }
+  /* START: Sliders */
+  #grid .toggleGroup .summary { padding-left: 35px; }
+  #grid .toggleGroup .section {
+	  margin-bottom: 5px;
+	  padding-left: 8px;
+	  padding-right: 8px;
+  }
+  #grid .toggleGroup .section h4 {margin-top: 10px;}
+  #grid .toggleGroup .section h4 a {
+	  padding-left: 35px;
+	  display: block;
+	  font-size: 90%; padding-top: .5em; padding-bottom: .5em;
+	  background-image: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/content/roundArrowOpen.gif');
+	  background-repeat:no-repeat;
+	  background-position:left center;
+	  color: #DB0011;
+	  }
+  #grid .toggleGroup .section.closed h4 a {
+	  background-image: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/content/roundArrow.gif');
+	  background-repeat:no-repeat;
+	  background-position:left center;
+	  color: #000;
+	  }
+  #grid .toggleGroup .section h5{margin-top: 5px; padding: 0 0 10px 0 !important;}
+  #grid .toggleGroup .section h5 a {
+	  background-image: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/content/productArrowOver.gif');
+	  padding-right: 27px;
+	  color: #DB0011;
+	  }
+	  #grid .toggleGroup .section.closed h5 a {
+	  background-image: url('/public/demoassets/genericbank/sml_red_arrow.gif');
+	  padding: 0 12px 0 0;
+	  line-height: 15px;
+	  color: #000;
+	  } 
+  #grid .toggleGroup .section .toggleTarget { padding-left: 8px;}
+  #grid .toggleGroup .section .details { padding-left: 18px; padding-right: 8px; }
+  #grid .toggleGroup .section .details h6 { margin-bottom: 20px;}
+  #grid .toggleGroup .section .details .tip {
+	  border: solid 1px #CCC;
+	  background-image: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/content/bg_help.gif');
+	  padding: 10px;
+	  margin-bottom:20px;
+	  }
+  #grid .contentItem ul{
+	  padding: 0 0 20px 15px;
+  }
+  #grid .grid .contentItem h5{
+	  padding: 0 0 20px;	
+  }
+  /* END: Sliders */
+  
+  /* CMB HSBCnet FAQ styles */
+  #faq {margin-left: 0px; padding: 15px 0px 0px 0px !important; list-style-type: none !important;}
+  #faq li.section {
+	  list-style-type: none !important;
+	  margin-bottom: 5px;
+	  padding-left: 8px;
+	  padding-right: 8px;
+	  padding-bottom: 10px;
+	  line-height: 120%;
+  }
+  #faq .section a.sToggleTrigger {
+	  font-size: 110%;
+	  font-weight: bold;
+	  padding: 0 25px 0 0;
+	  background: url("/public/demoassets/genericbank/productArrowOver.gif") no-repeat right center;
+	  text-decoration: none;
+	  line-height: 120%;
+	  }
+  #faq .section.closed a.sToggleTrigger {
+	  padding: 0 15px 0 0;
+	  background: url("/public/demoassets/genericbank/sml_red_arrow.gif") no-repeat right center;
+	  line-height: 120%;
+	  }
+  #faq .section a.sToggleTrigger span {
+	  line-height: 120%;
+	  }
+  #faq .section .sToggleTarget {
+	  font-size: 130%;
+	  padding-left: 20px;
+	  padding-top: 10px;
+	  margin-bottom: 15px;
+  }
+  #faq .section ul {
+	  margin-left: 20px;
+  }
+  /* END: CMB HSBCnet FAQ styles */
+  /* Invest/Retire */
+  #grid .grid_18 .contentRow {
+     width: 720px;
+     padding: 0;
+   }
+   #grid .grid_18 .contentRow .contentItem {
+     width: 220px;
+     padding: 0 20px 23px 0 !important;
+   }
+  /* END: Invest/Retire */
+/* CMB Business Accounts */
+#promo h3 {
+	font-size:125%;
+	line-height:24px;
+	font-weight: bold !important;
+}
+#promo p {
+	font-size:95%;
+	line-height:20px !important;
+}
+#promo .phone {
+	clear:both !important;
+	padding: 5px 0 0 !important;	
+}
+
+#promo .phone span {
+	color:#000000;
+	display:block;
+	font-size:150%;
+	font-weight:bold;
+	margin:3px 0 0;
+	clear:both !important;
+	width:100%;
+}
+
+#promo .smallPhone {
+	font-size:75%;
+	line-height:12px;
+	clear:both !important;
+}
+
+#business #grid .grid_18 .contentRow .contentItem {
+ width: 320px;
+ padding: 10px 30px 0 0 !important;
+}
+/* END: CMB Business Accounts */
+
+.homeloansRow .grid_8 .column
+{
+	margin-top: 15px !important;
+}
+.homeloansRow .grid_8 .column
+{
+	padding: 10px 10px 20px !important;
+	width: 278px !important;
+	height: auto !important;	
+}
+.homeloansRow.one .grid_8 .column
+{
+	min-height: 221px;
+}
+.homeloansRow.two .grid_8 .column
+{
+	min-height: 251px;
+}
+.homeloansRow.three .grid_8 .column
+{
+	min-height: 305px;
+}
+#grid .homeloansRow h3 a span {font-size: 130%; line-height: 130%;}
+
+/* general */
+#LF_traffic_driver_form_wrapper .clear { clear: both; }
+
+/* wrapper and form */
+#LF_traffic_driver_form_wrapper #traffic_driver_form label { font-size: 90%; float: left; padding: 2px 0 0 30px;}
+
+/* heading */
+#LF_traffic_driver_form_wrapper #traffic_driver_form #form_heading { margin: 0 0 14px 0; padding: 0; font-size: 100%; font-weight: bold; color: #000; }
+
+/* inputs and submit */
+#LF_traffic_driver_form_wrapper #traffic_driver_form input { width: 135px; margin: 0 0 10px 0; padding: 2px; float: right; color: #000; font-size: 12px; border: 1px solid #ccc; }
+#LF_traffic_driver_form_wrapper #traffic_driver_form #submit_button input { background-color: #D90011;
+color: #fff;
+font-weight: bold;
+font-size: 12px;
+padding: 6px;
+cursor:pointer }
+#LF_traffic_driver_form_wrapper #traffic_driver_form #submit_button input:hover { background-position: 0 -33px; }
+
+/* error messages */
+#LF_traffic_driver_form_wrapper .traffic_driver_input_border_red { border: 1px solid red !important; background-color: #FFD9D9 !important; }
+#LF_traffic_driver_form_wrapper #LF_errorMessageLoanAmt, #LF_traffic_driver_form_wrapper #LF_errorMessageAppVal, #LF_traffic_driver_form_wrapper #LF_errorMessageTermYrs, #LF_traffic_driver_form_wrapper #LF_errorMessageIntRate { display: none; }
+#LF_traffic_driver_form_wrapper .input_error_message_zip_code, #LF_traffic_driver_form_wrapper .input_error_message_vehicle_price { width: 130px; height: auto; margin: -10px 0 5px 0; padding: 1px 0 3px 5px; font-size: 10px; color: #f00; text-align: right; float: right; clear: both; display: block !important; }
+/* Custom PIB Forms */
+  #customThankYou h2
+  {
+      margin-bottom: 40px;
+      top: 20px;
+      position: relative;
+  }
+  #customThankYou p
+  {
+      margin-bottom: 20px;
+	  font-size: 100%;
+  }
+  #customForm {font-size: 90%;}
+  #customForm label {left: 10px; position: relative;}
+  #customForm label.topLvl {display: block; margin: 10px 0 10px 0; left: 0px; padding-top: 20px;}
+  #customForm legend.topLvl {display: block; padding: 20px 0 10px 0;}
+  #customForm select {border: solid 1px #999;}
+  #cfrm_times,#cfrm_compare,#customForm textarea {display: block; font-size: 125%;}
+  #customForm ul.errorMsg.off { display: none; }
+  #customForm h2
+  {
+      margin-bottom: 40px;
+      top: 20px;
+      position: relative;
+      font-size: 150%;
+  }
+  #customForm .spacer {padding-bottom: 10px; padding-left: 20px;}
+  #customForm .indent {padding-bottom: 30px; padding-left: 20px;}
+  #similar_yes_1{margin-left: 40px;}
+  #similar_yes_2{margin-left: 40px;}
+  #customForm textarea {width: 550px; height: 3.75em;}
+  #customForm fieldset.cfrm_ratings{margin: 20px 0;}
+  #customForm .cfrm_scale {float: right; margin-bottom: 10px; margin-top: 20px;}
+  #customForm .cfrm_scale li {display: block; float: left; width: 50px; text-align: center;}
+  #customForm .cfrm_ratings fieldset {position: relative; clear:both; height: 1.5em; padding: 15px 0 5px 0; font-size: 90%;}
+  #customForm .cfrm_ratings legend{position:absolute; line-height: 110%; left: 5px; top: 12px;}
+  #customForm .cfrm_ratings legend span{display: block; width:600px; line-height: 150%;}
+  #customForm .cfrm_ratings div{display: block; float: right;}
+  #customForm .cfrm_ratings legend.main{position: relative; left: 0px; top: 0px; font-size: 100%; margin-right: 10px;}
+  
+  #customForm .cfrm_ratings fieldset.odd {background-color: #EEE;}
+  #customForm .cfrm_ratings input{width: 49px;}
+  #customForm .cfrm_ratings input {display: block; float: left;}
+  #customForm #similar_yes_1{
+      display: none;
+  }
+  #customForm #similar_yes_2{
+      display: none;
+  }
+  #customForm input.button{
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: left;
+      vertical-align: baseline;
+      background-color: #db0011;
+      font-size: 87.5%;
+      font-weight: bold;
+      line-height: 14px;
+      padding: 9px 12px 10px 8px;
+      color: #fff;
+      margin-bottom: 20px;
+  }	  
+  
+  form.customized div.center{
+      background: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/layout/bg_lightgrey_btn_left.gif') left top no-repeat;
+      color: #000000;
+      display: block;
+      float: left;
+      font-weight: bold;
+      margin: 0 10px 0 0;
+      padding: 0 0 0 4px;
+      text-decoration: none;
+  }
+  
+  form.customized input.button{
+      background: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/layout/bg_lightgrey_btn.gif') right top no-repeat;
+      padding: 9px 12px 10px 8px;
+      *margin-left: -20px;
+      *padding-right: 0px;
+      display: block;
+      float: left;
+      font-size: 87.5%;
+      line-height: 14px;
+      text-decoration: none;
+      color: #000000;
+  }
+  form.customized input.button:hover, form.customized input.button:focus, form.customized input.button:active {
+      color:#db0011; 
+  }
+  #customForm .errorMsg {
+      border: 1px solid #D90011;
+      background-color: #faeced;
+  }
+  #customForm ul.errorMsg {
+      display: block;
+      padding: 10px 10px 10px 60px;
+      margin: 10px 0px;
+      font-size: 100%;
+      background-image: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/content/errorImg.png');
+      background-repeat: no-repeat;
+      background-position: 10px 10px;
+      min-height: 35px;
+      height: auto !important;
+  }
+ #customForm  ul.errorMsg.off {
+      display: none;
+  }
+  
+  /* BP Offer Page */
+  .bpOffer ul{
+	list-style:none !important;	
+	padding:5px 0 10px !important;
+	
+	}
+	.bpOffer ul li{
+	line-height:18px !important;
+	list-style:none !important;
+	padding:0 0 15px 28px !important;
+	background: url("/public/demoassets/genericbank/lrg_tick.gif") left top no-repeat !important;
+	}
+ #oaoEDD ul{
+	margin-bottom:0 !important;
+ }
+ #oaoEDD ul li{
+	 font-size:80% !important;
+ }
+ #oaoEDD h4{
+	 margin-top:25px !important;
+ }
+ #oaoEDD a.pdfLink{
+	 font-size:100% !important;
+	 color:#000 !important;
+ }
+}
+@media print
+{
+  div#smallPrint p { margin-bottom: 10px; }/* fix paragraph spacing */
+  /* START: Sliders */
+  #grid .toggleTarget
+  {
+	  display: block !important;
+  }
+  /* END: Sliders */
+  
+}

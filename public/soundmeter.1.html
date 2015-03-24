@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Sound Level Test</title>
+<script>
+
+//vars
+window.audioContext = window.AudioContext ||
+                      window.webkitAudioContext;
+var valueMax = 0;
+var ctx;
+var myMediaObject = {};
+
+window.onload=function(){
+
+// build out our mediaObject properties and methods
+    myMediaObject.mic = document.getElementById('mic');
+    myMediaObject.cam = document.getElementById('cam');
+    myMediaObject.audioButton = document.getElementById('audioButton');
+    myMediaObject.videoButton = document.getElementById('videoButton');
+    myMediaObject.stopButton = document.getElementById('stopButton');
+    myMediaObject.audioContext = new window.audioContext();
+    myMediaObject.processor();
+    
+    if (navigator.webkitGetUserMedia) {
+        console.log("Application using Chrome browser");
+        navigator.getUserMedia = navigator.webkitGetUserMedia;
+        myMediaObject.attachStream =  function(stream) {
+            this.cam.src = webkitURL.createObjectURL(stream);
+        };
+        myMediaObject.stopMedia = function () {
+            this.cam.pause();
+            this.cam.src="";
+            this.stream.stop();
+        };
+        
+    } else if (navigator.mozGetUserMedia) {
+        console.log("Application using Mozilla browser");
+        navigator.getUserMedia = navigator.mozGetUserMedia;
+        myMediaObject.attachStream = function(stream) {
+            myMediaObject.cam.mozSrcObject = stream;
+        };
+        myMediaObject.stopMedia = function () {
+            this.cam.pause();
+            this.cam.mozSrcObject=null;
+            this.stream.stop();
+        };
+        
+    } else alert('getUserMedia() is not supported in your browser');
+    
+    var canvas = document.getElementById('visualCanvas');
+    if (canvas.getContext){
+        ctx = canvas.getContext('2d');
+    }
+
+};
+
+myMediaObject.startMedia = function(mediaType) {
+    if (mediaType == "audio") {
+        navigator.getUserMedia({audio: true},onStream,onStreamError);
+    }
+    
+    if (mediaType == "video") {
+        navigator.getUserMedia({audio: true, video: true},onStream,onStreamError);
+    }
+};
+
+myMediaObject.processor = function() {
+    
+    console.log("starting processor");
+    
+    setInterval(function(){
+        if (!myMediaObject.analyser || !myMediaObject.audioSample || !myMediaObject.stream){
+            // do nothing
+            return;
+        }
+        
+        if (myMediaObject.stream.ended === true) {
+            // do nothing
+            return;
+        }
+        
+        myMediaObject.analyser.getByteTimeDomainData(myMediaObject.audioSample);
+        for (var i = 0; i < myMediaObject.audioSample.length; i++) {
+            var value = myMediaObject.audioSample[i];
+            var normalizedValue;
+            if (value > 128) {
+                normalizedValue = (value - 128)/128;
+            }
+            if (value < 128) {
+                normalizedValue = (128 - value)/128;
+            }
+            if (normalizedValue > valueMax) valueMax = normalizedValue;
+            else if (normalizedValue < valueMax){
+                valueMax = valueMax - (valueMax/5000);
+            }
+        }//end for loop
+        
+    }, 10);
+    
+    // need to introduce a delay before drawing, since FireFox 
+    setTimeout(function(){
+        setInterval(function(){
+            if (!myMediaObject.analyser || !myMediaObject.audioSample || !myMediaObject.stream){
+                // do nothing
+                return;
+            }
+            
+            if (myMediaObject.stream.ended === true) {
+                // do nothing
+                return;
+            }
+            
+            myMediaObject.drawCanvas(valueMax, myMediaObject.cam.videoWidth, myMediaObject.cam.videoHeight);
+            
+        }, 50);
+    },100);
+
+    /*
+    setInterval(function(){
+        drawCanvas(valueMax);
+    }, 50);
+    */
+};
+
+myMediaObject.setupAnalyser = function(stream){
+    var input = myMediaObject.audioContext.createMediaStreamSource(stream);
+    this.analyser = myMediaObject.audioContext.createAnalyser();
+    
+    input.connect(this.analyser);
+    this.audioSample = new Uint8Array(this.analyser.frequencyBinCount);
+};
+
+
+function onStreamError(e) {
+  console.error('Streaming failed: ', e);
+}
+
+function drawAudio(int){
+    
+    var maxRadius = 150;
+
+    ctx.clearRect(0,0,300,300); 
+    
+    ctx.beginPath();
+    ctx.strokeStyle="#FF0000";
+    ctx.arc(150,150,int*maxRadius + 20,0,Math.PI*2,true);
+    ctx.shadowBlur=20;
+    ctx.shadowColor="red";
+    ctx.fillStyle="red";
+    ctx.fill();
+    ctx.stroke();
+    ctx.drawImage(myMediaObject.mic, 100, 100, 100, 100);
+    ctx.closePath();
+    
+}
+
+function drawVideo(int, width, height){
+    
+    var maxRadius = 150;
+    
+    ctx.clearRect(0,0,300,300); 
+    ctx.strokeStyle="#FF0000";
+    
+    ctx.save();
+        ctx.beginPath();
+        ctx.shadowBlur=0;
+        ctx.arc(150,150,100,0,Math.PI*2,true);
+        //ctx.clip();
+        ctx.closePath();
+        
+        ctx.beginPath();
+        ctx.drawImage(myMediaObject.cam, 50, 50, 200, 200);
+        ctx.closePath();
+    ctx.restore();
+    
+    ctx.beginPath();
+    //ctx.shadowBlur=10;
+    //maxRadius -= ctx.shadowBlur*2;
+    ctx.shadowColor="red";
+    ctx.lineWidth=int*maxRadius - int*maxRadius/2;
+    ctx.arc(150,150,ctx.lineWidth/2 + 105,0,Math.PI*2,true);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.arc(150,150,100,0,Math.PI*2,true);
+    ctx.lineWidth=10;
+    
+    ctx.stroke();
+}
+
+function clearCanvas() {
+    console.log("clearing canvas.");
+    ctx.clearRect(0,0,300,300);
+}
+
+
+function onStream(stream) {
+
+    myMediaObject.stream = stream;
+    myMediaObject.attachStream(stream);
+    myMediaObject.videoButton.disabled = true;
+    myMediaObject.audioButton.disabled = true;
+    myMediaObject.stopButton.disabled = false;
+    
+// set the onended event handler
+    stream.onended = function() {
+        myMediaObject.videoButton.disabled = false;
+        myMediaObject.audioButton.disabled = false;
+        myMediaObject.stopButton.disabled = true;
+        clearCanvas();
+    };
+    
+    if (stream.getVideoTracks().length > 0) {
+        myMediaObject.drawCanvas = function(valueMax) {drawVideo(valueMax)};
+    } else myMediaObject.drawCanvas = function(valueMax) {drawAudio(valueMax)};
+
+    myMediaObject.setupAnalyser(stream);
+}
+
+
+</script>
+
+</head>
+<body>
+
+<image id="mic" src="/public/img/mic.png" style="display: none;"></image>
+
+<button id="audioButton" type="button" onclick="myMediaObject.startMedia('audio')">Audio Only</button>
+<button id="videoButton" type="button" onclick="myMediaObject.startMedia('video')">Audio and Video</button>
+<button id="stopButton" type="button" onclick="myMediaObject.stopMedia()" disabled>Stop</button>
+<br>
+<canvas id="visualCanvas" height="300" width="300" style="margin: -150px 0 0 -150px; left: 50%; top: 50%; position: absolute;"></canvas>
+<br>
+<video id="cam" autoplay muted style="display: none;"></video>
+<br>
+</body>
+</html>

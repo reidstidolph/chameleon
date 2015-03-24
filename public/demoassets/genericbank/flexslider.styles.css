@@ -1,0 +1,180 @@
+/* =Skitter styles
+----------------------------------------------- */
+#mobileHeroContainer {
+	top: -10px;
+	position: relative;
+	width: 640px;
+	height: 325px;
+	background: #000;
+}
+
+#mobileHeroContainer img {
+	max-width: none;
+	width: 640px;
+	height: 325px;
+}
+
+#mobileHeroContainer .carouselTab {
+display: none;	
+}
+
+/* =Navigation
+-------------------------------------------------------------- */
+#mobileHeroContainer .flex-prev {
+	position: absolute;
+	top: 45%;
+	left: 3px;
+}
+
+#mobileHeroContainer .flex-next {
+	position: absolute;
+	top: 45%;
+	right: 3px;
+}
+
+#mobileHeroContainer .flex-prev:hover, #mobileHeroContainer .flex-next:hover {
+	opacity: 0.5 !important;
+}
+
+/* =Numbers
+-------------------------------------------------------------- */
+#mobileHeroContainer .flex-control-nav {
+	position: absolute;
+	bottom: 5px;
+	/*z-index: 100;*/
+	background: #000;
+	color: #fff;
+	font: bold 11px arial;
+	padding: 5px 2px 5px 8px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	opacity: 0.75;
+}
+#mobileHeroContainer .flex-control-nav li {display: inline;}
+#mobileHeroContainer .flex-control-nav a {
+	background: #333;
+	color: #333; /* Fallback for older browsers */
+    color: rgba(0, 0, 0, 0.0);
+	float: left;
+	padding: 2px 6px;
+	margin: 0 5px 0 0;
+	cursor: pointer;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	transition: all 0.2s;
+	text-indent: -9999em;
+}
+
+#mobileHeroContainer .flex-control-nav a:hover {
+	background: #000;
+}
+
+#mobileHeroContainer .flex-control-nav a.flex-active, #mobileHeroContainer .flex-control-nav a.flex-active:hover {
+	background: #ccc;
+}
+
+/* =Loading
+-------------------------------------------------------------- */
+.loading {
+	position: absolute;
+	top: 50%;
+	right: 50%;
+	z-index: 10000;
+	margin: -16px -16px;
+	color: #fff;
+	text-indent: -9999em;
+	overflow: hidden;
+	background: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/skitter/ajax-loader.gif') no-repeat left top;
+	width: 32px;
+	height: 32px;
+}
+
+/* =Label
+-------------------------------------------------------------- */
+#mobileHeroContainer .flex-viewer {
+	position: relative;
+}
+#mobileHeroContainer .tabArticleText {
+	display: none;
+}
+#mobileHeroContainer .flex-active-slide .tabArticleText {
+	position: absolute;
+	top: 10px;
+	width: 350px !important;
+	color: #000;
+	display: block;
+	opacity: 0.9;
+	background: #fff;
+}
+
+#mobileHeroContainer .flex-active-slide .alignRight {
+	margin-left: 235px;
+}
+#mobileHeroContainer .flex-active-slide .alignLeft {
+	margin-left: 55px;
+}
+
+#mobileHeroContainer .flex-active-slide h2 {
+	padding: 10px;
+	margin: 0;
+	font: normal 2.2em arial,tahoma;
+}
+#mobileHeroContainer .flex-active-slide p {
+	padding: 10px;
+	margin: 0;
+	font: normal arial,tahoma;
+	font-size: 110% !important;
+	line-height: 150% !important;
+}
+#mobileHeroContainer .flex-active-slide a {
+	margin-left: 10px !important;
+}
+#mobileHeroContainer .flex-active-slide a.greyBtn span {
+	font-size: 290%;
+}
+
+/* =Default theme
+-------------------------------------------------------------- */
+#mobileHeroContainer .focus_button, 
+#mobileHeroContainer .flex-next, 
+#mobileHeroContainer .flex-prev, 
+#mobileHeroContainer .play_pause_button 
+{
+	display: block;
+	background: url('/1/PA_1_083Q9FJ08A002FBP5S00000000/content/new_usshared/shared_fragments/images/skitter/sprite-clean.png') no-repeat;
+	text-indent: -9999em;
+}
+
+#mobileHeroContainer .flex-next {
+	background-position: -0px -46px;
+	width: 45px;
+	height: 45px;
+}
+
+#mobileHeroContainer .flex-prev {
+	background-position: 0px 0px;
+	width: 45px;
+	height: 45px;
+}
+
+#mobileHeroContainer .play_pause_button {
+	background-position: -0px -0px;
+	width: 42px;
+	height: 42px;
+}
+
+#mobileHeroContainer .play_pause_button.play_button {
+	background-position: -0px -84px;
+	width: 42px;
+	height: 42px;
+}
+
+#mobileHeroContainer .focus_button {
+	background-position: -42px -0px;
+	width: 42px;
+	height: 42px;
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+
+<HEAD>
+    <TITLE>Peer Connection Test</TITLE>
+
+    <script type="text/javascript">
+        var myPeerConnection;
+        var mediaStream;
+        var pcConfig = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
+
+
+        window.onload = function() {
+            
+            screenlog("Page loading complete...testing browser for WebRTC");
+            screenlog("Your browser is:  " + navigator.userAgent);
+            hasGetUserMedia();
+            hasRTCPeerConnection();
+        };
+
+// Get access to local media
+        function getLocalStream() {
+            navigator.getUserMedia({
+                audio: true,
+                video: true
+            }, onStream, onStreamError);
+        };
+
+// Callback for success in accessing local media
+        function onStream(stream) {
+            screenlog("Got local media.");
+            document.getElementById("pcButton").disabled = false;
+            mediaStream = stream;
+        }
+
+// Callback for error in accessing local media
+        function onStreamError(e) {
+            screenlog('Streaming failed: ', e);
+        }
+
+// Test for GUM, and assign any prefixed version of it to a single object
+        function hasGetUserMedia() {
+            if (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+                // Good to go!
+                screenlog("Your browser supports GUM...Good to go!");
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                document.getElementById("gumButton").disabled = false;
+            } else {
+                alert('getUserMedia is not supported in your browser');
+                screenlog("getUserMedia is not supported in your browser");
+            }
+        }
+
+// Test for PC, and assign any prefixed version of it to a single object
+        function hasRTCPeerConnection(){
+            if (window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection) {
+                screenlog("Your browser supports peerConnection...Good to go!");
+                window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+            } else {
+                alert('RTCPeerConnection is not supported in your browser');
+                screenlog("RTCPeerConnection is not supported in your browser");
+            }
+            
+        }
+
+// Create a RTCPeerConnection
+        function createPeerConnection() {
+            // construct a new RTCPeerConnection
+            myPeerConnection = new RTCPeerConnection(pcConfig)
+            console.log(myPeerConnection);
+            
+            // Wire up event handlers
+            myPeerConnection.onicecandidate = onIceCandidate;
+            myPeerConnection.oniceconnectionstatechange = onIceConnectionStateChange;
+            myPeerConnection.onaddstream = onAddStream;
+            myPeerConnection.onremovestream = onRemoveStream;
+            myPeerConnection.onsignalingstatechange = onSignalingStateChange;
+            
+            screenlog("RTCPeerConnection created");
+            
+            document.getElementById("addStreamButton").disabled = false;
+        }
+        
+        
+// Add media stream to RTCPeerConnection
+        function addStream(){
+            screenlog("Adding local media to the Peer Connection.");
+            myPeerConnection.addStream(mediaStream);
+            myPeerConnection.createOffer(gotDescription);
+            
+            function gotDescription(desc) {
+                myPeerConnection.setLocalDescription(desc);
+                screenlog(JSON.stringify({ "sdp": desc }));
+            }
+        }
+        
+// Peer Connection event handlers
+        function onIceCandidate(e) {
+            screenlog("Got ICE Candidate. Type: " + e.candidate.sdpMid + ", SDP Line: " + e.candidate.candidate);
+            console.log(e);
+        }
+        
+        function onIceConnectionStateChange(e) {
+            screenlog("ICE connection state changed.");
+        }
+        
+        function onAddStream(e) {
+            screenlog("Stream added!");
+        }
+        
+        function onRemoveStream(e) {
+            screenlog("Stream removed.");
+        }
+        
+        function onSignalingStateChange(e) {
+            screenlog("Signaling state changed.");
+        }
+
+// logger
+        function screenlog(log) {
+            document.getElementById("log").innerHTML += log + "<br>";
+            console.log(log);
+        }
+
+    </script>
+</HEAD>
+
+<BODY>
+    <button id="gumButton" disabled="true" type="button" onclick="getLocalStream()">Get User Media</button>
+    <br>
+    <button id="pcButton" disabled="true" type="button" onclick="createPeerConnection()">Start Peer Connection</button>
+    <br>
+    <button id="addStreamButton" disabled="true" type="button" onclick="addStream()">Add User Media to Peer Connection</button>
+    <br>
+    <div id="log"></div>
+</BODY>
+
+</HTML>

@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html>
+    <head>
+        <title>FrostFlake Head Tracking Demo</title>
+
+        <!-- stylesheet -->
+        <link rel="stylesheet" href="screen.css" />
+
+        <!-- dependencies -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+        <!-- frostFlake -->
+        <script type="text/javascript" src="Class.js"></script>
+        <script type="text/javascript" src="Animation.js"></script>
+        <script type="text/javascript" src="Camera.js"></script>
+        <script type="text/javascript" src="Keyboard.js"></script>
+        <script type="text/javascript" src="Mouse.js"></script>
+        <script type="text/javascript" src="Input.js"></script>
+        <script type="text/javascript" src="Io.js"></script>
+        <script type="text/javascript" src="Renderer.js"></script>
+        <script type="text/javascript" src="Sprite.js"></script>
+        <script type="text/javascript" src="Util.js"></script>
+        <script type="text/javascript" src="View.js"></script>
+        <script type="text/javascript" src="frostFlake.js"></script>
+
+        <!-- examplesFile -->
+        <script type="text/javascript" src="spriteDemo.js"></script>
+        <script type="text/javascript" src="animationDemo.js"></script>
+        <script type="text/javascript" src="inputDemo.js"></script>
+        <script type="text/javascript" src="cameraDemo.js"></script>
+        <script type="text/javascript" src="rendererDemo.js"></script>
+
+        <script>
+            var d1, d2, d3, d4, d5;
+
+            // start all examples when page is fully loaded.
+            /* global spriteDemo, animationDemo, inputDemo, cameraDemo, rendererDemo, $ */
+            $(function() {
+                "use strict";
+
+                // initiate the demos
+                // d1 = new spriteDemo.Game($("canvas#spriteDemo")[0]);
+                // d2 = new animationDemo.Game($("canvas#animationDemo")[0]);
+                // d3 = new inputDemo.Game($("canvas#inputDemo")[0]);
+                d4 = new cameraDemo.Game($("canvas#cameraDemo")[0]);
+                // d5 = new rendererDemo.Game($("canvas#rendererDemo")[0]);
+
+            });
+        </script>
+        
+        <script src="headtrackr.js"></script>
+
+    </head>
+    <body>
+        <!-- CAMERA DEMO -->
+        <section class="demo">
+            <h1>Head Tracking Demo</h1>
+            <canvas id="cameraDemo"></canvas>
+            <p>
+                A quick hack of Justin Johnson's FrostFlake camera demo, using head tracking!
+            </p>
+
+        </section>
+
+        <canvas id="inputCanvas" width="320" height="240" style="display:none"></canvas>
+        <video id="inputVideo" autoplay loop></video>
+        
+    </body>
+    
+    <script type="text/javascript">
+
+        var videoInput = document.getElementById('inputVideo');
+        var canvasInput = document.getElementById('inputCanvas');
+
+        var htracker = new headtrackr.Tracker();
+        htracker.init(videoInput, canvasInput);
+        htracker.start();
+        
+        /*
+        document.addEventListener('headtrackingEvent', function (e) {
+            // console.log("got head tracking event!");
+        }, false);
+        */
+        
+        
+            
+    </script>
+</html>

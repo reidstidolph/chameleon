@@ -1,0 +1,49 @@
+<div ng-controller="adminController">
+    <tabset >
+        <tab class="tab">
+            <tab-heading>
+                <span class="fa fa-users"></span> Users
+            </tab-heading>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="well">
+                        <h3>Users</h3>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in chameleonAdminData.users">
+                                    <td>{{user.fname}} {{user.lname}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.role}}</td>
+                                    <td><button type="button" class="btn btn-default-oracle" ng-click="editUser(user._id)"><span class="fa fa-cogs"></span> edit</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab class="tab">
+            <tab-heading>
+                <span class="fa fa-bomb"></span>
+                Logout
+            </tab-heading>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="well">
+                        <p><br><a href="/logout" class="btn btn-danger btn-lg">Logout</a></p>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>

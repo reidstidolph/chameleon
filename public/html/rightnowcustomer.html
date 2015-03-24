@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <meta charset="utf-8">
+     <meta http-equiv="Pragma" content="no-cache">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+     <title>Customer</title>
+    <script type="text/javascript">
+    
+/**==========================================
+ *  
+ * 
+ *  Some variables
+ * 
+ * 
+   ========================================== */
+    
+    // This object will store the WSC session object we create
+    var wscSessionObj;
+    // This is just an object to store our configuration parameters, used to provision the WSC session
+    var configuration = {
+        // The identity that we will register
+        sipUser : "webrtc12@reidlab.com",
+        // The WSC we will connect to
+        wscUri : "ws://155.212.214.157:7004/ws/webrtc/guest",
+        // The username will we use to authenticate
+        sipUsername : "webrtc12@reidlab.com",
+        // The password we will use to authenticate
+        sipPassword : "oracle4webrtc",
+        localAudioId: "localAudio",
+        remoteAudioId : "remoteAudio",
+        localVideoId : "selfVideo",
+        remoteVideoId : "remoteVideo",
+    };
+    
+/**==========================================
+ *  
+ * 
+ *  WSC control functions
+ * 
+ * 
+   ========================================== */
+    
+    // A function that will start the WSC session
+    function startWscSession() {
+        // This creates a new session object for us, which will connect to a WSC, and register
+        wscSessionObj = new wsc.Session(configuration.sipUser, configuration.wscUri, onSessionSuccess, onSessionFailure);
+        
+        // Need to create an Authentication Handler, to deal with challenges for credentials from the WSC
+        var authHandler = new wsc.AuthHandler(wscSessionObj);
+        authHandler.refresh =  function(authType, authHeaders) {
+            authHeaders = chameleon.handlers.challengeHandler(authType, authHeaders);
+            return authHeaders;
+        };
+
+    }
+
+
+/**==========================================
+ *  
+ * 
+ *  Event handlers
+ * 
+ * 
+   ========================================== */
+           
+    // Sets up a callback for successful creation of the WSC session. This used by the wscSessionObj, by being passed to the wsc.Session constructor
+    function onSessionSuccess(){
+        
+    }
+    
+    // Sets up a callback for failure of the WSC session. This used by the wscSessionObj, by being passed to the wsc.Session constructor
+    function onSessionFailure(){
+        
+    }
+    
+    // Sets up a callback to deal with challenges for credentials from the WSC
+    function authHandler(){
+        
+    }
+
+
+
+</script>
+</head>
+    <body>
+
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Loading...</title>
+    <script>
+
+        window.onload = function() {
+            var canvasId = "loadingCanvas";
+            var canvas = document.getElementById(canvasId);
+            var screen = canvas.getContext('2d');
+            var size = {
+                x: canvas.width,
+                y: canvas.height
+            };
+            var ballSize = 5;
+            var bufferSize = 1;
+
+            var ballCount = 40;
+            var tickCount = 0;
+            var renderCount = 0;
+
+            var Ball = function(x, y, bit) {
+                this.x = x;
+                this.y = y;
+                this.bit = bit;
+            };
+            var tick = function() {
+                tickCount++;
+                if (tickCount % 1 === 0) {
+                    screen.clearRect(0, 0, size.x, size.y);
+                    for (var i = 0; i < ballArray.length; ++i) {
+                        ballArray[i].update(i);
+                        ballArray[i].draw();
+                        renderCount++;
+                    }
+                }
+                window.requestAnimationFrame(tick);
+            };
+            Ball.prototype = {
+                update: function(i) {
+                    this.y = size.y / 4 + 100 / 2 * (1 + Math.sin((tickCount / 2 * (i / 500 + 0.02)) % 2 * Math.PI));
+                },
+                draw: function() {
+                    screen.beginPath();
+                    screen.arc(this.x, this.y, ballSize, 0, 2 * Math.PI);
+                    console.log(this.bit);
+                    if (this.bit === 0) {
+                        screen.fillStyle = 'white';
+                    }
+                    else {
+                        screen.fillStyle = 'grey';
+                    }
+                    
+                    screen.fill();
+                }
+            };
+
+            var ballArray = [];
+            for (var i = 0; i < ballCount; ++i) {
+                var curBallY = 1;
+                var curBallX = ((size.x - ballCount * ((2 * ballSize) + bufferSize) + bufferSize) / 2) + i * (bufferSize + (2 * ballSize));
+                var curBit = 0;
+                if (i % 2 === 0) {
+                    curBit = 1;
+                }
+                ballArray.push(new Ball(curBallX, curBallY, curBit));
+                ballArray[i].draw();
+            }
+            console.log(ballArray.length);
+            tick();
+
+        };
+    </script>
+
+</head>
+
+<body>
+
+    <canvas id="loadingCanvas" width="500" height="200" style="border: 1px solid black; background: black"></canvas>
+
+</body>
+
+</html>

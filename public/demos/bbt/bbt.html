@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <meta charset="utf-8">
+     <meta http-equiv="Pragma" content="no-cache">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+     <title>Customer</title>
+     <link rel="shortcut icon" href="/public/img/oracle-favicon.ico" type="image/x-icon" />
+     <script type="text/javascript" src="/public/js/angular.js"></script>
+     <script type="text/javascript" src="/public/js/chameleonBeta.js"></script>
+    <script type="text/javascript">
+var mySipUserId = "webrtc60@reidlab.com";
+var agentSipUserId = "webrtc61@reidlab.com";
+
+var configuration = {
+    sipUser : mySipUserId,
+    wscUri : "ws://155.212.214.157:7004/ws/webrtc/guest",
+    sipUsername : mySipUserId,
+    sipPassword : "oracle4webrtc",
+    localAudioId: "localAudio",
+    remoteAudioId : "remoteAudio",
+    ringtoneId : "ringback",
+    ringbackId: "ringback",
+    localVideoId : "selfVideo",
+    remoteVideoId : "remoteVideo",
+    maxAttemptedCalls : 1,
+    maxActiveCalls : 1,
+    callbacks : {}
+};
+
+var formFieldNames = {
+    title : "Trade Request Form",
+    fieldName1 : "Stock Symbol",
+    fieldName2 : "Quantity",
+    fieldName3 : "Price",
+    fieldName4 : "Limit",
+    fieldName5 : "Options",
+    fieldName6 : "Comments"
+    };
+
+window.onload = function() {
+    document.getElementById('companyName').innerHTML = "BB&T";
+    document.getElementById('buttonTextLine1').innerHTML = "QuickConnect to a";
+    document.getElementById('buttonTextLine2').innerHTML = "Banking Representative";
+};
+    
+
+</script>
+<style>
+#advisorButton {
+    /* Change these attributes to customize the button to activate widget */
+    color: #95172b; /* <-- This will set the color of the text */
+    border-color: #95172b; /* <-- This will set the color of border surrounding the button */
+    font-size: 14px; /* <-- This will set the size of the font */
+    margin: 152px 0 0 238px; /* <-- This will set the position of the button on the screen
+    the value is defined as "margin: top right bottom left". A value of "0 0 0 0" will stick
+    it centered at the very top. So, keep the right and bottom values at 0, then just
+    adjust top and left to place it where you want it. */
+    height: 40px; /* <-- This will set the height of the button*/
+    width: 221px; /* <-- This will set the width of the button*/
+    
+    
+    /* These attributes you likely won't need to change */
+    border: solid 2px;
+    padding: 3px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    display: block;
+    background-color: white;
+}
+
+#background {
+    /* Change these attributes to customize the background */
+    background-image:url('images/background.png');
+    height: 1885px;
+    
+    /* These attributes you likely won't need to change */
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow:hidden;
+    background-position:center top; 
+}
+
+#widget-container {
+    /* Change these attributes to customize the widget */
+    background-color: #95172b; /* <-- This will set the color of the widget border */
+    color: grey; /* <-- This will set the color of the text and icons within the widget */
+    
+    /* These attributes you likely won't need to change */
+    height: 450px;
+    width: 630px;
+    margin: -300px 0 0 -315px;
+    left: 50%;
+    top: 360px;
+    display: block;
+    position: absolute;
+    box-shadow: 50px 50px 100px 10px black;
+    border-radius: 15px;
+    pointer-events: auto;
+    opacity: 1.0;
+}
+
+#widget-logo {
+    position:absolute;
+    right:60px; bottom:-40px;
+    border: solid 5px;
+    margin: 3px; padding: 3px; 
+    background-color: white;
+    height: 115px
+}
+</style>
+</head>
+  <body ng-app="customer" ng-controller="customerController" onorientationchange="setViewPort();">
+  
+      <div class="loading-overlay" ng-class="{loadingComplete : pageIsLoaded === true, loadingAnimation : pageIsLoaded === true}" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0; background: #000; opacity: 1; pointer-events:none; z-index: 2000;">
+        <img style="pointer-events:none; width: 500px; height: 500px; position: absolute; top: 50%; left: 50%; margin: -250px 0 0 -250px;" class="loading" src="/public/img/loadingloop.gif">
+    </div>
+  
+  <div id="background">
+      <div ng-click="talkToAdvisor()" id="advisorButton"><a id="buttonTextLine1"></a><br><a id="buttonTextLine2"></a></div>
+  </div>
+
+<audio id="ringback" preload=auto src="/public/media/ringtones/xylophone.ogg" loop></audio>
+<audio id="activate" preload=auto src="/public/media/soundfx/waterdrop.ogg"></audio>
+<audio id="deactivate" preload=auto src="/public/media/soundfx/logout.mp3"></audio>
+
+<div style="text-align:center;">
+    <div class="widget-overlay">
+        <div class="form-overlay" ng-class="{overlayDarken : (syncData.form.active === true && chameleon.isActiveCall === true)}"></div>
+        <div id="widget-container" ng-class="{entershow : (helpActive === true && widgetDocked === null), 
+                                              enterhide : (helpActive === false && (widgetDocked === false || widgetDocked === null)),
+                                              enterhideFromDocked : (helpActive === false && widgetDocked === true),
+                                              widgetDock : (widgetDocked === true && helpActive === true),
+                                              widgetUndock : (widgetDocked == false && helpActive === true)
+                                              }">
+            <div id="widget-header">
+                <h3 style="font-size: 30px">
+                    <span ng-hide='chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true || widgetDocked === true'>Connect wth <a id="companyName"></a></span>
+                    <span ng-show='chameleon.isOutgoingCall === true && (widgetDocked === false || widgetDocked === null)'>Connecting you...</span>
+                    <span ng-show='chameleon.isActiveCall === true && (widgetDocked === false || widgetDocked === null)'>How can I help?</span>
+                    <span ng-show='chameleon.isActiveCall === false && chameleon.isOutgoingCall === false && madeHelpCall === true && widgetDocked === true'>Thank You for contacting us!</span>
+                    <span class="fa fa-times" style="position:absolute; right:20px; top: 18px; cursor:pointer" ng-click="endHelp()"></span>
+                    <span ng-hide='widgetState == "activeDocked" 'class="fa fa-minus" style="position:absolute; right:50px; top: 18px; cursor:pointer" ng-click="toggleWidgetDock()"></span>
+                    <span ng-show='widgetState == "activeDocked" 'class="fa fa-plus" style="position:absolute; right:50px; top: 18px; cursor:pointer" ng-click="toggleWidgetDock()"></span>
+                </h3>
+            </div>
+            <div id="widget-body" style="text-align:center;">
+                <div ng-hide='chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true'>
+                    <div style="font-size:50px; position: relative; text-align:center;">
+                        
+                        <span class="genericButton" ng-click="doVoiceCall()" ng-hide="widgetDocked === true">Voice &nbsp &nbsp &nbsp &nbsp</span>
+                        
+                        <span class="genericButton" ng-click="doVideoCall()" ng-hide="widgetDocked === true">Video <br></span>
+                        
+                        <span class="fa fa-volume-up fa-6 genericButton buttonIcon" ng-class="{buttonDock : (widgetDocked === true),
+                                                                                               buttonUndock : (widgetDocked === false)
+                        }" ng-click="doVoiceCall()"></span> 
+                        &nbsp &nbsp  &nbsp &nbsp
+                        <span class="fa fa-video-camera fa-6 genericButton buttonIcon" ng-class="{buttonDock : (widgetDocked === true),
+                                                                                                  buttonUndock : (widgetDocked === false)
+                        
+                        }" ng-click="doVideoCall()"></span>
+                    </div>
+                </div>
+                <div style="text-align:center;" ng-show="chameleon.signallingStateId == 1">
+	                <span><strong>Error:  </strong>{{chameleon.signallingError.code}} {{chameleon.signallingError.reason}}</span><br>
+	                Please try again later.
+                </div>
+                <div style="text-align:center;" ng-show='chameleon.isActiveCall === false && chameleon.isOutgoingCall === false && madeHelpCall === true'>
+                    <br><br><br><br><br><br><br>
+                    <span style="font-size:60px">Hope to see you again soon.</span>
+                </div>
+                
+                <div style="text-align:center;" ng-show="chameleon.isOutgoingCall === true">
+                    <br><br><br><br><br>
+                    <span ng-hide="widgetDocked === true" style="font-size:30px">Connecting you to a specialist</span><br><br>
+                    <img style="pointer-events:none;" src="/public/img/redloading.gif">
+                    <br>
+                </div>
+                
+                <div ng-show='chameleon.isActiveCall === true'>
+                    <div id="videoContainer">
+            	        <video ng-show='chameleon.activeCallVideo == "RECVONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="remoteVideo" autoplay ></video>
+            	        <div class="videoSubContainer" >
+            	            <video ng-show='chameleon.activeCallVideo == "SENDONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="selfVideo" autoplay muted></video>
+            	        </div>
+                    </div>
+                        <div class="pulse animated infinite" ng-show='chameleon.activeCallVideo == "NONE"' >
+                            <span class="fa fa-volume-up fa-6" style="font-size: 130px; position: absolute; left: 50%; display: block; width: 100px; margin: 0px 0 0 -60px;"></span>
+                        </div>
+                        <div style="top:174px; position:relative" ng-show='chameleon.activeCallVideo == "NONE" && (widgetDocked === false || widgetDocked === null)' >
+                            <span style="font-size: 50px">Voice Call</span>
+                        </div>
+                        <div class="genericButton">
+                            <span ng-click="hangupCall()" class="fa fa-times-circle fa-6" style="font-size:140px; position:absolute; left:20px; bottom:100px;"></span>
+                        </div>
+                </div>
+
+            </div>
+            <div id="widget-footer">
+
+            </div>
+            <img src="images/logo.png" id="widget-logo">
+        </div>
+        
+        <div id="form-container"  ng-class="{formshow : (syncData.form.active === true && chameleon.isActiveCall === true),
+                                            formhide : (syncData.form.active === false || chameleon.isActiveCall === false)}">
+            
+            <div id="form-container-body" class="col-sm-6 ">
+                <h2>{{formFieldNames.title}}</h2>
+                <br><span id="entry1"><strong> {{formFieldNames.fieldName1}}</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.field1"></input></span>
+                <br><span id="entry2"><strong> {{formFieldNames.fieldName2}}</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.field2"></input></span>
+                <br><span id="entry3"><strong> {{formFieldNames.fieldName3}}</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.field3"></input></span>
+                <br><span id="entry4"><strong> {{formFieldNames.fieldName4}}</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.field4"></input></span>
+                <br><span id="entry5"><strong> {{formFieldNames.fieldName5}}</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.field5"></input></span>
+                <br><span id="entry6"><strong> {{formFieldNames.fieldName6}}</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.field6"></input></span>
+                <br><button class="btn btn-default" id="login-button" ng-click="submitForm()">Submit</button>
+        	</div>
+        </div>
+    </div>
+    
+
+</div>
+<audio id="localAudio" muted></audio>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/public/css/customer.css">
+
+<script>
+var angularApp = angular.module('customer', []);
+
+    
+/**==========================================
+ *  Angular service
+   ========================================== */
+angularApp.factory("chameleonService", function(){
+    
+    return chameleon;
+
+});
+
+
+
+angularApp.controller('customerController', ["$scope", "chameleonService", function($scope, chameleonService){
+    
+    $scope.pageIsLoaded = false;
+    $scope.helpActive = false;
+    $scope.madeHelpCall = false;
+    $scope.widgetDocked = null;
+    
+    $scope.syncData = {
+        type : "syncData",
+        customerVersion : 0,
+        agentVersion : 0,
+        form : {
+            active : false,
+            field1 : "",
+            field2 : "",
+            field3 : "",
+            field4 : "",
+            field5 : "",
+            field6 : ""
+        }
+    };
+    
+    $scope.formFieldNames = formFieldNames;
+    
+    console.log("Page is ready");
+    setTimeout(function(){
+        console.log("trigger removal of loader screen");
+        $scope.pageIsLoaded = true;
+        $scope.$apply();
+    },1000);
+
+
+    $scope.configuration = configuration;
+    
+    $scope.configuration.callbacks.onIncomingData = function (event) {
+        console.log("Got Data!!! " + event.data );
+        var newData = JSON.parse(event.data);
+        
+        if (newData.type == "syncData") {
+            if (newData.agentVersion === $scope.syncData.agentVersion) {
+                console.log("ignore.");
+            } else if (newData.agentVersion !== $scope.syncData.agentVersion) $scope.syncData = newData;
+            
+            if($scope.syncData.form.active === true) {
+                $scope.widgetDocked = true;
+            }
+        }
+        
+        if (newData.type == "command") {
+            console.log ("Got a command: " + newData.action );
+            var element = document.getElementById(newData.element);
+            element.classList.add('focusElement');
+            
+            setTimeout(function(){
+                element.classList.remove('focusElement');
+            },1000);
+        }
+    };
+    
+    $scope.chameleon = chameleonService;
+    
+    $scope.talkToAdvisor = function(){
+        console.log($scope.helpActive);
+        document.getElementById("activate").play();
+        $scope.helpActive = true;
+        $scope.widgetDocked = null;
+        chameleonService.bootstrap($scope.configuration, $scope);
+        console.log("Request for Help");
+        console.log($scope.helpActive);
+    };
+    
+    $scope.wscInit = function(){
+        chameleonService.bootstrap($scope.configuration, $scope);
+    };
+    
+    $scope.reset = function(){
+        chameleonService.initialize();
+    };
+    
+    $scope.wscStop = function(){
+        chameleonService.closeSession();
+    };
+    
+    $scope.answerIncomingCall = function(call){
+        console.log("Accept call button is clicked!");
+        chameleonService.acceptIncomingCall(call);
+    };
+    
+    $scope.declineIncomingCall = function(call){
+        console.log("Decline call button is clicked.");
+        chameleonService.rejectIncomingCall(call);
+    };
+    
+    $scope.cancelOutgoingCall = function(call){
+        console.log("Cancel call button is clicked.");
+        chameleonService.cancelOutgoingCall(call);
+    };
+    
+    $scope.hangupCall = function(call){
+        console.log("Hang up button clicked.");
+        chameleonService.endActiveCall(call);
+    };
+    
+    
+    $scope.doVoiceCall = function(){
+        console.log("Make voice call button clicked");
+        $scope.syncData.form.active = false;
+        chameleonService.makeCall(agentSipUserId, audioCall);
+    };
+    
+    $scope.doVideoCall = function(){
+        console.log("Make video call button clicked");
+        $scope.syncData.form.active = false;
+        chameleonService.makeCall(agentSipUserId, videoCall);
+    };
+    
+    
+    $scope.endHelp = function() {
+        chameleonService.closeSession();
+        $scope.helpActive = false;
+        $scope.syncData.form.active = false;
+        $scope.madeHelpCall = false;
+        document.getElementById("deactivate").play();
+    };
+    
+    $scope.toggleWidgetDock = function() {
+        
+        if($scope.syncData.form.active === true) {
+            
+            $scope.widgetDocked = true;
+            
+            return;
+        }
+        
+        if ($scope.widgetDocked === null) $scope.widgetDocked = true;
+        else $scope.widgetDocked = !$scope.widgetDocked;
+    };
+    
+    $scope.submitForm = function() {
+        $scope.syncData.form.active = false;
+        $scope.widgetDocked = false;
+    };
+    
+    $scope.outboundCallee;
+    $scope.sessionMedia = {};
+    $scope.sessionMedia.audio = true;
+    $scope.sessionMedia.video = false;
+    $scope.sessionMedia.data = false;
+
+
+
+    var audioCall = {
+        audio : true,
+        video : false,
+        data  : true,
+        dcConfig : [{"label":"chameleonDataChannel", "reliable" : true }]
+    };
+  
+    var videoCall = {
+        audio : true,
+        video : true,
+        data  : true,
+        dcConfig : [{"label":"chameleonDataChannel", "reliable" : true }]
+    };
+
+
+
+    
+    $scope.$watch('syncData.form', function() {
+        
+        if (chameleonService.calls.active[0] && chameleonService.calls.active[0].dataChannels[0].getState() == "open") {
+            console.log("sending form update.");
+            $scope.syncData.customerVersion++;
+            chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify($scope.syncData));
+        }
+    }, true);
+
+}]);
+</script>
+
+</body>
+    
+</html>

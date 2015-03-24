@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <meta charset="utf-8">
+     <meta http-equiv="Pragma" content="no-cache">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+     <title>Dell Customer</title>
+  </head>
+  <body ng-app="dell" ng-controller="dellController" onorientationchange="setViewPort();">
+  
+      <div class="loading-overlay" ng-class="{loadingComplete : pageIsLoaded === true, loadingAnimation : pageIsLoaded === true}" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0; background: #000; opacity: 1; pointer-events:none; z-index: 2000;">
+        <img style="pointer-events:none; width: 500px; height: 500px; position: absolute; top: 50%; left: 50%; margin: -250px 0 0 -250px;" class="loading" src="/public/img/loadingloop.gif">
+    </div>
+  
+  <div id="background">
+      <div ng-click="talkToAdvisor()" id="advisorButton">QuickConnect to <br>a Dell Agent</div>
+  </div>
+
+<audio id="ringback" preload=auto src="/public/media/ringtones/xylophone.ogg" loop></audio>
+<audio id="activate" preload=auto src="/public/media/soundfx/waterdrop.ogg"></audio>
+<audio id="deactivate" preload=auto src="/public/media/soundfx/logout.mp3"></audio>
+
+<div style="text-align:center;">
+    <div class="widget-overlay">
+        <div class="form-overlay" ng-class="{overlayDarken : (syncData.form.active === true && chameleon.isActiveCall === true)}"></div>
+        <div id="widget-container" ng-class="{entershow : (helpActive === true && widgetDocked === null), 
+                                              enterhide : (helpActive === false && (widgetDocked === false || widgetDocked === null)),
+                                              enterhideFromDocked : (helpActive === false && widgetDocked === true),
+                                              widgetDock : (widgetDocked === true && helpActive === true),
+                                              widgetUndock : (widgetDocked == false && helpActive === true)
+                                              }">
+            <div id="widget-header">
+                <h3 style="font-size: 30px">
+                    <span ng-hide='chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true || widgetDocked === true'>Connect with Dell</span>
+                    <span ng-show='chameleon.isOutgoingCall === true && (widgetDocked === false || widgetDocked === null)'>Connecting you...</span>
+                    <span ng-show='chameleon.isActiveCall === true && (widgetDocked === false || widgetDocked === null)'>How can I help?</span>
+                    <span ng-show='chameleon.isActiveCall === false && chameleon.isOutgoingCall === false && madeHelpCall === true && widgetDocked === true'>Thank You for contacting us!</span>
+                    <span class="fa fa-times" style="position:absolute; right:20px; top: 18px; cursor:pointer" ng-click="endHelp()"></span>
+                    <span ng-hide='widgetState == "activeDocked" 'class="fa fa-minus" style="position:absolute; right:50px; top: 18px; cursor:pointer" ng-click="toggleWidgetDock()"></span>
+                    <span ng-show='widgetState == "activeDocked" 'class="fa fa-plus" style="position:absolute; right:50px; top: 18px; cursor:pointer" ng-click="toggleWidgetDock()"></span>
+                </h3>
+            </div>
+            <div id="widget-body" style="text-align:center;">
+                <div ng-hide='chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true'>
+                    <div style="font-size:50px; position: relative; text-align:center;">
+                        
+                        <span class="genericButton" ng-click="doVoiceCall()" ng-hide="widgetDocked === true">Voice &nbsp &nbsp &nbsp &nbsp</span>
+                        
+                        <span class="genericButton" ng-click="doVideoCall()" ng-hide="widgetDocked === true">Video <br></span>
+                        
+                        <span class="fa fa-volume-up fa-6 genericButton buttonIcon" ng-class="{buttonDock : (widgetDocked === true),
+                                                                                               buttonUndock : (widgetDocked === false)
+                        }" ng-click="doVoiceCall()"></span> 
+                        &nbsp &nbsp  &nbsp &nbsp
+                        <span class="fa fa-video-camera fa-6 genericButton buttonIcon" ng-class="{buttonDock : (widgetDocked === true),
+                                                                                                  buttonUndock : (widgetDocked === false)
+                        
+                        }" ng-click="doVideoCall()"></span>
+                    </div>
+                </div>
+                <div style="text-align:center;" ng-show="chameleon.signallingStateId == 1">
+	                <span><strong>Error:  </strong>{{chameleon.signallingError.code}} {{chameleon.signallingError.reason}}</span><br>
+	                Please try again later.
+                </div>
+                <div style="text-align:center;" ng-show='chameleon.isActiveCall === false && chameleon.isOutgoingCall === false && madeHelpCall === true'>
+                    <br><br><br><br><br><br><br>
+                    <span style="font-size:60px">Hope to see you again soon.</span>
+                </div>
+                
+                <div style="text-align:center;" ng-show="chameleon.isOutgoingCall === true">
+                    <br><br><br><br><br>
+                    <span ng-hide="widgetDocked === true" style="font-size:30px">Connecting you to a specialist</span><br><br>
+                    <img style="pointer-events:none;" src="/public/img/redloading.gif">
+                    <br>
+                </div>
+                
+                <div ng-show='chameleon.isActiveCall === true'>
+                    <div id="videoContainer">
+            	        <video ng-show='chameleon.activeCallVideo == "RECVONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="remoteVideo" autoplay ></video>
+            	        <div class="videoSubContainer" >
+            	            <video ng-show='chameleon.activeCallVideo == "SENDONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="selfVideo" autoplay muted></video>
+            	        </div>
+                    </div>
+                        <div class="pulse animated infinite" ng-show='chameleon.activeCallVideo == "NONE"' >
+                            <span class="fa fa-volume-up fa-6" style="font-size: 130px; position: absolute; left: 50%; display: block; width: 100px; margin: 0px 0 0 -60px; color: #0085c3;"></span>
+                        </div>
+                        <div class="genericButton">
+                            <span ng-click="hangupCall()" class="fa fa-times-circle fa-6" style="font-size:140px; position:absolute; left:20px; bottom:100px;"></span>
+                        </div>
+                </div>
+
+            </div>
+            <div id="widget-footer">
+
+            </div>
+            <img src="/public/demoassets/dell/dell-logo.png" style="position:absolute; right:60px; bottom:-40px; border: solid 5px; margin: 3px; padding: 3px; background-color: white; height:110px">
+        </div>
+        
+        <div id="form-container"  ng-class="{formshow : (syncData.form.active === true && chameleon.isActiveCall === true),
+                                            formhide : (syncData.form.active === false || chameleon.isActiveCall === false)}">
+            
+            <div id="form-container-body" class="col-sm-6 ">
+                <h2>Laptop Build</h2>
+                <br><span id="entry1"><strong> Model</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.feild1"></input></span>
+                <br><span id="entry2"><strong> Processor</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.feild2"></input></span>
+                <br><span id="entry3"><strong> RAM</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.feild3"></input></span>
+                <br><span id="entry4"><strong> Internal Storage</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.feild4"></input></span>
+                <br><span id="entry5"><strong> Graphics</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.feild5"></input></span>
+                <br><span id="entry6"><strong> Options</strong>:  <br><input type="text" class="form-control" ng-model="syncData.form.feild6"></input></span>
+                <br><button class="btn btn-default" id="login-button" ng-click="submitForm()">Submit</button>
+        	</div>
+        </div>
+    </div>
+    
+
+</div>
+<audio id="localAudio" muted></audio>
+
+<script type="text/javascript" src="/public/js/angular.js"></script>
+<script type="text/javascript">
+var configuration = {
+    sipUser : "webrtc7@reidlab.com",
+    wscUri : "ws://155.212.214.157:7004/ws/webrtc/guest",
+    sipUsername : "webrtc7@reidlab.com",
+    sipPassword : "oracle4webrtc",
+    localAudioId: "localAudio",
+    remoteAudioId : "remoteAudio",
+    ringtoneId : "ringback",
+    ringbackId: "ringback",
+    localVideoId : "selfVideo",
+    remoteVideoId : "remoteVideo",
+    maxAttemptedCalls : 1,
+    maxActiveCalls : 1,
+    callbacks : {
+        sessionSuccessCallback : function() {console.log("I'm sessionSuccessCallback!");}
+    }
+};
+</script>
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/public/css/dell.css">
+
+<script type="text/javascript" src="/public/js/chameleonBeta.js"></script>
+<script type="text/javascript" src="/public/js/dell-data.js"></script>
+
+
+</body></html>

@@ -1,0 +1,137 @@
+
+#content { font-family:arial,verdana,sans-serif; }
+h1 { line-height:1.2em !important; background:url(images/line.jpg) no-repeat scroll left 25px; }
+
+.small-copy{margin-left:65px;margin-bottom:45px;font-size:12px; line-height:17px;font-family:arial,verdana,sans-serif;}
+.dmg a {font-family:Arial, Helvetica, sans-serif;color:#00ABE3;text-decoration:none;font-weight:bold; }
+.dmg a:hover {text-decoration:underline;}
+.dmg a .arrow { background: url(http://cdn.directv.com/images/content/themes/default/link_arrow.png) no-repeat scroll 4px 4px transparent;display: inline; padding-left: 10px; position: relative; white-space: nowrap;}
+.dmg sup{line-height:10px;font-size:10px;}
+.dmg .body-copy{font-family:arial,verdana,sans-serif;font-size:12px; line-height:17px;}
+.dmg .module-content{padding:4px;}
+.dmg .title{font-family:arial,verdana,sans-serif;color:#333333; size:14px;line-height:16px;font-weight:bold; }
+
+#side-a {float:left; width:30%; margin-right:20px;}
+#side-b {float:left; width:30%; margin-right:20px;}
+#side-c {float:left; width:30%; margin-right:20px;}
+
+#rn_AnswerText { overflow: auto; }
+#rn_AnswerText div, p { margin-bottom: 16px !important; }
+
+.clearfix { clear: both; overflow: auto; }
+
+.step-one {margin-top:20px;}
+.step-one, .step-two, .step-three, .step-four, .step-five, .step-six, .step-seven, .step-eight, .step-nine { clear: both; overflow: auto; }
+.step-one-copy, .step-three-copy, .step-two-copy, .step-four-copy, .step-five-copy, .step-six-copy, .step-seven-copy, .step-eight-copy, .step-nine-copy, #tip-box .content-copy {float: left; width: 38%;}
+.step-one h1, .step-two h1, .step-three h1, .step-four h1, .step-five h1, .step-six h1, .step-seven h1, .step-eight h1, .step-nine h1 { background-color: #2A9BE7; color: #fff; float: left; font:normal 12px arial; font-weight:bold; margin:0 14px 14px 0; padding: 10px; text-align: center; text-transform: uppercase;}
+.step-one h1 span, .step-two h1 span, .step-three h1 span, .step-four h1 span, .step-five h1 span, .step-six h1 span, .step-seven h1 span, .step-eight h1 span, .step-nine h1  span {font-size:30px;display:block;margin:10px 0  5px;}
+
+#tip-box { clear:both;overflow:auto; border:solid 1px #d4d4d4;padding:10px 10px 20px;margin:30px 0;background: url('http://cdn.directv.com/cms2/support/answer_center/dtve_education/tip_bg_gradient.jpg') repeat-x scroll left bottom;}
+#tip-box .title img{font-weight:bold;padding:2px 5px;float:left;}
+#tip-box .title span {top:10px;position:relative; font-weight:bold;}
+#tip-box .content-copy { clear: left; }
+
+.install-player { background-color:#ECECEC;padding:5px;border:solid 1px #d4d4d4;}
+.install-player img { float: left; padding: 2px 5px 0 0; }
+.intro h1.as-h1-details img {float:left; padding: 2px 10px 10px 0;}
+
+#dmg_3890 .image { width:25%; float: left; }
+#dmg_3890 .dtve-btks h4 {font:20px/23px "Trebuchet MS"; color:#333; margin-bottom: 5px; }
+/*#dmg_3890 .dtve-btks {background:url(http://cdn.directv.com/cms2/support/answer_center/dtve_education/bkts_background.jpg) no-repeat; cursor: pointer; height:140px; padding-left:15px}*/
+#dmg_3890 .dtve-btks {cursor: pointer; height:140px; padding-left:15px; border-bottom:1px solid #d6d6d6;}
+
+#dmg_3426 table#win3426, #dmg_3426 table#mac3426 {width: 50%; float: left; font-family: arial,sans-serif; font-size:0.95em;}
+#dmg_3426 table#mac3426 {margin-left: -1px;}
+#dmg_3426 table#win3426 th, #dmg_3426 table#mac3426 th {height: 110px; font-weight: normal; background: #eeeeee;}
+#dmg_3426 table#win3426 td, #dmg_3426 table#mac3426 td {height: 77px;}
+#dmg_3426 table#win3426 th img, #dmg_3426 table#mac3426 th img { margin: 10px 15px;float: left;}
+#dmg_3426 table#win3426 td img, #dmg_3426 table#mac3426 td img {margin: 10px 15px 10px 70px; float: left;}
+#dmg_3426 table#win3426 div.text, #dmg_3426 table#mac3426 div.text {margin: 0!important;}
+#dmg_3426 table#win3426 div.text.oneline, #dmg_3426 table#mac3426 div.text.oneline {margin-top:21px!important;}
+#dmg_3426 .small {font-size: 12px; color:#999999; margin: 0!important;line-height:14px;}
+
+
+table.gridtable {font-family: arial,sans-serif; font-size:0.95em; color:#666; border-width: 1px #666666 solid;border-collapse: collapse;width: 100%;}
+table.gridtable th {border-width: 1px;padding: 8px;border-style: solid;border-color: #666666;background-color: #dedede;font-weight:bold;}
+table.gridtable td {border-width: 1px;padding: 8px;border-style: solid;border-color: #666666;background-color: #ffffff;}
+
+/* Branching FAQs */
+.branching .intro {margin-bottom:40px;}
+.branching .intro h1 {background:none!important; padding-bottom:0px!important; margin-bottom:10px!important; color:#333333!important;}
+.branching .intro a {padding:0px!important; background:none!important;}
+.branching .solution-content {max-width:55%; float: left;}
+.branching.wide .solution-content {max-width:55%; float: left;}
+.branching .solution-title {margin-bottom:15px; max-width:380px; font-weight:bold;}
+.branching .title {font-size:16px; font-weight:bold;}
+.branching .sub-title {font-weight:bold;}
+.branching .section-title {font-size: 17px;font-weight: bold;margin-bottom: 20px;}
+.branching .step1, .real-branching .step1 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step2, .real-branching .step2 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step3, .real-branching .step3 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step4, .real-branching .step4 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step5, .real-branching .step5 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step6, .real-branching .step6 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step7, .real-branching .step7 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step8, .real-branching .step8 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step9, .real-branching .step9 {background: transparent url() 0px 0px no-repeat; margin-bottom:15px!important; min-height:18px; display: inline-block; width: 100%;}
+.branching .step1 span, .branching .step2 span, .branching .step3 span, .branching .step4 span, .branching .step5 span, .branching .step6 span, .branching .step7 span, .branching .step8 span, .branching .step9 span, .real-branching .step1 span, .real-branching .step2 span, .real-branching .step3 span, .real-branching .step4 span, .real-branching .step5 span, .real-branching .step6 span, .real-branching .step7 span, .real-branching .step8 span, .real-branching .step9 span {margin-right: 7px; position: relative; top: 5px;}
+.branching .step-box, .real-branching .step-box {background-color: #2A9BE7; color: #FFFFFF; float: left; font: bold 12px arial; margin: 0 14px 20px 0!important; padding: 8px; text-align: center; top:0px!important;}
+.branching .step-num, .real-branching .step-num {display: block; font-size: 30px; margin: 0px 0 0px!important; top:0px!important;}
+.real-branching .intro {margin-bottom:40px;}
+.real-branching .intro h1 {background:none!important; padding-bottom:0px!important; margin-bottom:10px!important; color:#333333!important;}
+.real-branching .intro a {padding:0px!important; background:none!important;}
+.real-branching .solution-content, .real-branching .level-text {max-width:55%; float: left;}
+.real-branching.wide .solution-content, .real-branching.wide .level-text {max-width:55%; float: left;}
+.real-branching .solution-title {margin-bottom:15px; max-width:380px; font-weight:bold;}
+.real-branching .title {font-size:16px; font-weight:bold;}
+.real-branching .sub-title {font-weight:bold;}
+.real-branching form {margin-left:20px;}
+.real-branching .question {font-weight:bold; margin-bottom:25px;}
+.real-branching .answer {margin-left:35px; border-top: 1px dotted #ccc; border-bottom: 1px dotted #ccc; padding-top: 15px; padding-bottom: 15px;}
+.branching .solution1, .branching .solution2, .branching .solution3, .branching .solution4, .branching .solution5, .branching .solution6, .branching .solution7, .branching .solution8, .real-branching .solution1, .real-branching .solution2, .real-branching .solution3, .real-branching .solution4, .real-branching .solution5, .real-branching .solution6, .real-branching .solution7, .real-branching .solution8 {display: inline-block; width: 95%;}
+.real-branching .question, .real-branching .answer {display: inline-block; width: 95%;}
+
+/* 3999 */
+#program_remote {display: inline-block;}
+#program_remote .image-number {margin-right: 8px; float:left; position:relative;}
+#program_remote .image-text {float:left; position:relative;}
+
+/* 4069 */
+#hr44_wifi .step-one-copy, #hr44_wifi .step-three-copy, #hr44_wifi .step-two-copy, #hr44_wifi .step-four-copy, #hr44_wifi .step-five-copy, #hr44_wifi .step-six-copy,  #hr44_wifi .step-seven-copy, #hr44_wifi .step-eight-copy, #hr44_wifi .step-nine-copy {max-width:45%!important; line-height:18px!important; display: inline-block!important;}
+/* 3679 */
+#dtv_player_install .step-one-copy, #dtv_player_install .step-three-copy, #dtv_player_install .step-two-copy, #dtv_player_install .step-four-copy, #dtv_player_install .step-five-copy, #dtv_player_install .step-six-copy,  #dtv_player_install .step-seven-copy, #dtv_player_install .step-eight-copy, #dtv_player_install .step-nine-copy {max-width:45%!important; line-height:18px!important;display: inline-block!important;}
+#answer_detail legend {padding:20px 0 0;}
+/* inline image */
+.image-right { float: right; padding-left: 10px;}
+
+
+/* 3669 */
+.manuals_3669 select { width: 240px; }
+.manuals_3669 .step-1, 
+.manuals_3669 .step-2 { float: left; margin-right: 40px; }
+.manuals_3669 .step-1 span, 
+.manuals_3669 .step-2 span { text-align: center; display: block; margin-top: 10px; }
+.manuals_3669 .step-2, .manuals_3669 .rm-dm { opacity: 0.5; }
+.manuals_3669 .step-2 select { display: none; }
+.manuals_3669 .step-2 select#directv { display: block; }
+
+
+/* videos index page */
+#video_index .section-nav {width: 100%; margin: 0px auto 45px!important; text-align: center;}
+#video_index .section-nav ul {padding: 0!important;}
+#video_index .nav-link {color: #109acc; font-family:DTV-DIN-BOLD,Trebuchet MS,Arial,sans-serif; font-size: 14px; line-height: 22px!important; font-weight: bold; display: inline-block; margin: 0!important;}
+#video_index .divider {border-right: 1px #109acc solid; padding-right: 30px;}
+#video_index .pad-left {padding-left:30px;}
+#video_index .vid-section {width: 100%; margin-bottom:0px!important;}
+#video_index .section-title { background: url(https://cdns.directv.com/images/content/themes/default/ctm_header_separator.png) no-repeat scroll 100% bottom transparent;margin-bottom: 25px!important;padding-bottom: 10px; font-family:Trebuchet MS,Arial,sans-serif; font-size: 18px; line-height: 20px; font-weight: bold; color: #333333; width: 100%;}
+#video_index .vid-tmbs {width:100%; margin: 0 0 0 15px!important; display: inline-block;}
+#video_index .vid-tmb {margin-right: 35px; display: inline-block; width: auto; margin-bottom: 45px!important; float: left;}
+#video_index .vid-tmb img {margin-bottom: 10px;}
+#video_index .tmb-copy {margin-bottom: 0px!important; max-width: 270px; min-height: 65px;}
+#video_index .tmb-copy a {font-family:Trebuchet MS,Arial,sans-serif; font-size: 16px; line-height: 20px; font-weight: bold; color: #333333;}
+#video_index .tmb-copy a:hover {color:#109acc;}
+#video_index .back-top {font-family:DTV-DIN-BOLD,Trebuchet MS,Arial,sans-serif; font-size: 11px; line-height: 14px; color: #8a8989;margin: 15px auto 25px!important; text-align: right; padding-right: 20px; font-weight: bold;}
+#video_index .back-top a {color:#8a8989;}
+
+/* toggle support modal */
+.ie9 .toggle-support-modal span { filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); left:0; }

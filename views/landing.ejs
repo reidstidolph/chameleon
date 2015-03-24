@@ -1,0 +1,80 @@
+<!doctype html>
+<html ng-app="landingApp">
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
+	<script type="text/javascript" src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+	<script type="text/javascript" src="/public/js/landing.js"></script>
+<%if (user.role == 'admin') {%>
+    <script type="text/javascript" src="/public/js/admincontroller.js"></script>
+<%}%>
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+	<link rel="shortcut icon" href="/public/img/oracle-favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="/public/css/chameleon.css">
+</head>
+<body ng-controller="landingController">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <img src="/public/img/oracle-communications.jpg" alt="OC Logo" height="52" style="border:3px solid #ff0000; border-radius:2px">
+                    WebRTC Session Controller
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+
+<%if (user.role == 'admin') {%>
+
+
+    <tabset justified="true">
+        <tab class="tab">
+            <tab-heading>
+            
+            
+<%}%>
+
+            <h1><span class="fa fa-anchor"></span> User Dashboard</h1>
+            
+            
+<%if (user.role == 'admin') {%>
+
+
+            </tab-heading>
+
+
+<%}%>
+        
+        
+<%- include userdashboard.ejs %>
+
+
+
+<%if (user.role == 'admin') {%>
+
+
+        </tab>
+        <tab class="tab">
+            <tab-heading><h1><span class="fa fa-life-ring"></span> Admin Dashboard</h1></tab-heading>
+            
+            
+<%- include admindashboard.ejs %>
+
+
+        </tab>
+    </tabset>
+    
+    
+<%}%>
+
+
+    </div>
+</body>
+</html>

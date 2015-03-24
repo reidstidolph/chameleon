@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <title>Canvas Test</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+    </head>
+    
+    <body>
+        <video id="myVideo" autoplay muted width="480" height="320"></video>
+        <br>
+        <span id="soundLevel"></span>
+        <div style="background-color:black; padding:5px; margin:5px">
+            <div id="audioMax" style="width: 40px; height: 15px; background-color: #FF3300; border-radius:5px; opacity:0.3"></div>
+            <div id="audio9" style="width: 40px; height: 15px; background-color: #FF6600; border-radius:5px; opacity:0.3"></div>
+            <div id="audio8" style="width: 40px; height: 15px; background-color: #FFCC66; border-radius:5px; opacity:0.3"></div>
+            <div id="audio7" style="width: 40px; height: 15px; background-color: #FFFF66; border-radius:5px; opacity:0.3"></div>
+            <div id="audio6" style="width: 40px; height: 15px; background-color: #99FF66; border-radius:5px; opacity:0.3"></div>
+            <div id="audio5" style="width: 40px; height: 15px; background-color: #66FF66; border-radius:5px; opacity:0.3"></div>
+            <div id="audio4" style="width: 40px; height: 15px; background-color: #00FF99; border-radius:5px; opacity:0.3"></div>
+            <div id="audio3" style="width: 40px; height: 15px; background-color: #00CCFF; border-radius:5px; opacity:0.3"></div>
+            <div id="audio2" style="width: 40px; height: 15px; background-color: #0066FF; border-radius:5px; opacity:0.3"></div>
+            <div id="audio1" style="width: 40px; height: 15px; background-color: #6666FF; border-radius:5px; opacity:0.3"></div>
+        </div>
+    </body>
+    
+    <script>
+    
+        var video = document.getElementById('myVideo');
+        var w = video.width;
+        var h = video.height;
+
+        
+      var errorCallback = function(e) {
+        console.log('Reeeejected!', e);
+      };
+      
+      var successCallback = function(localMediaStream) {
+        video.src = window.URL.createObjectURL(localMediaStream);
+        
+        window.AudioContext = window.AudioContext ||
+                            window.webkitAudioContext;
+        var audioContext = new AudioContext();
+        var analyser = audioContext.createAnalyser();
+        var microphone = audioContext.createMediaStreamSource(localMediaStream);
+        
+        analyser.smoothingTimeConstant = 0.3;
+        analyser.fftSize = 512;
+        
+        microphone.connect(analyser);
+        // analyser.connect(audioContext.destination);
+        // analyser.connect(javascriptNode);
+        // javascriptNode.connect(audioContext.destination);
+        
+        setInterval(function(){
+            var array =  new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(array);
+            var values = 0;
+        
+            var length = array.length;
+            for (var i = 0; i < length; i++) {
+                values += array[i];
+            }
+        
+            var average = ((values / length)/128)*100;
+            
+            document.getElementById('soundLevel').innerHTML=average;
+            
+            if (average > 90) {
+                document.getElementById("audioMax").style.opacity = 1.0;
+                document.getElementById("audio9").style.opacity = 1.0;
+                document.getElementById("audio8").style.opacity = 1.0;
+                document.getElementById("audio7").style.opacity = 1.0;
+                document.getElementById("audio6").style.opacity = 1.0;
+                document.getElementById("audio5").style.opacity = 1.0;
+                document.getElementById("audio4").style.opacity = 1.0;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 90 && average > 80) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 1.0;
+                document.getElementById("audio8").style.opacity = 1.0;
+                document.getElementById("audio7").style.opacity = 1.0;
+                document.getElementById("audio6").style.opacity = 1.0;
+                document.getElementById("audio5").style.opacity = 1.0;
+                document.getElementById("audio4").style.opacity = 1.0;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 80 && average > 70) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 1.0;
+                document.getElementById("audio7").style.opacity = 1.0;
+                document.getElementById("audio6").style.opacity = 1.0;
+                document.getElementById("audio5").style.opacity = 1.0;
+                document.getElementById("audio4").style.opacity = 1.0;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 70 && average > 60) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 1.0;
+                document.getElementById("audio6").style.opacity = 1.0;
+                document.getElementById("audio5").style.opacity = 1.0;
+                document.getElementById("audio4").style.opacity = 1.0;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 60 && average > 50) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 0.3;
+                document.getElementById("audio6").style.opacity = 1.0;
+                document.getElementById("audio5").style.opacity = 1.0;
+                document.getElementById("audio4").style.opacity = 1.0;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 50 && average > 40) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 0.3;
+                document.getElementById("audio6").style.opacity = 0.3;
+                document.getElementById("audio5").style.opacity = 1.0;
+                document.getElementById("audio4").style.opacity = 1.0;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 40 && average > 30) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 0.3;
+                document.getElementById("audio6").style.opacity = 0.3;
+                document.getElementById("audio5").style.opacity = 0.3;
+                document.getElementById("audio4").style.opacity = 1.0;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 30 && average > 20) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 0.3;
+                document.getElementById("audio6").style.opacity = 0.3;
+                document.getElementById("audio5").style.opacity = 0.3;
+                document.getElementById("audio4").style.opacity = 0.3;
+                document.getElementById("audio3").style.opacity = 1.0;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 20 && average > 10) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 0.3;
+                document.getElementById("audio6").style.opacity = 0.3;
+                document.getElementById("audio5").style.opacity = 0.3;
+                document.getElementById("audio4").style.opacity = 0.3;
+                document.getElementById("audio3").style.opacity = 0.3;
+                document.getElementById("audio2").style.opacity = 1.0;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else if (average < 10 && average > 0) {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 0.3;
+                document.getElementById("audio6").style.opacity = 0.3;
+                document.getElementById("audio5").style.opacity = 0.3;
+                document.getElementById("audio4").style.opacity = 0.3;
+                document.getElementById("audio3").style.opacity = 0.3;
+                document.getElementById("audio2").style.opacity = 0.3;
+                document.getElementById("audio1").style.opacity = 1.0;
+            } else {
+                document.getElementById("audioMax").style.opacity = 0.3;
+                document.getElementById("audio9").style.opacity = 0.3;
+                document.getElementById("audio8").style.opacity = 0.3;
+                document.getElementById("audio7").style.opacity = 0.3;
+                document.getElementById("audio6").style.opacity = 0.3;
+                document.getElementById("audio5").style.opacity = 0.3;
+                document.getElementById("audio4").style.opacity = 0.3;
+                document.getElementById("audio3").style.opacity = 0.3;
+                document.getElementById("audio2").style.opacity = 0.3;
+                document.getElementById("audio1").style.opacity = 0.3;
+            }
+        }, 20);
+      };
+      
+      function hasGetUserMedia() {
+          return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                    navigator.mozGetUserMedia || navigator.msGetUserMedia);
+        }
+        
+        if (hasGetUserMedia()) {
+          // Good to go!
+          console.log("Good to go!");
+        } else {
+          alert('getUserMedia() is not supported in your browser');
+        }
+        
+        navigator.getUserMedia  = navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
+    
+        console.log("getting user media...");
+        navigator.getUserMedia({video: true, audio: true}, function(localMediaStream) {
+
+            console.log("Got media!");
+            
+            successCallback(localMediaStream);
+
+        }, errorCallback);
+      
+
+    </script>
+
+</html>

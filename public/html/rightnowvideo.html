@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Video Example</title>
+        <style>
+            #videoContainer {
+                padding: 10px;
+                position: absolute;
+                object-fit: contain;
+            }
+            
+            #videoSubContainer {
+                position:absolute;
+                bottom:20px;
+                left:20px;
+                width:25%;
+            }
+            
+            .video {
+                width:100%;
+                border-radius:20px;
+                border: 2px solid;
+                border-color: #000000;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="videoButton" type="button" onclick="startMedia()">Start Video Capture</button>
+        <br><br>
+        <div id="videoContainer">
+            <video class="video" id="remoteVideo" autoplay ></video>
+            <div id="videoSubContainer" >
+                <video class="video" id="selfVideo" autoplay muted></video>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+    
+        var attachStream;
+        var remoteCam = document.getElementById('remoteVideo');
+        var localCam = document.getElementById('selfVideo');
+    
+        if (navigator.webkitGetUserMedia) {
+            console.log("Application using Chrome browser");
+            navigator.getUserMedia = navigator.webkitGetUserMedia;
+            attachStream =  function(stream) {
+                remoteCam.src = webkitURL.createObjectURL(stream);
+                localCam.src = webkitURL.createObjectURL(stream);
+            };
+            
+        } else if (navigator.mozGetUserMedia) {
+            console.log("Application using Mozilla browser");
+            navigator.getUserMedia = navigator.mozGetUserMedia;
+            attachStream = function(stream) {
+                remoteCam.mozSrcObject = stream;
+                localCam.mozSrcObject = stream;
+            };
+            
+        } else alert('getUserMedia() is not supported in your browser');
+        
+        function startMedia() {
+            navigator.getUserMedia({audio: false, video: true},onStream,onStreamError);
+        }
+        
+        function onStream(stream){
+            console.log('Attaching video stream...');
+            attachStream(stream);
+        }
+        
+        function onStreamError() {
+            alert('Error getting access to camera');
+        }
+    </script>
+</html>
+
+

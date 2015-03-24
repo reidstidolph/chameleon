@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Sound Level Test</title>
+<script>
+
+window.onload=function(){
+
+if (hasGetUserMedia()) {
+  // Good to go!
+  console.log("Good to go!");
+} else {
+  alert('getUserMedia() is not supported in your browser');
+}
+
+navigator.getUserMedia  = navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
+                  
+window.audioContext = window.AudioContext ||
+                      window.webkitAudioContext;
+                  
+//create a new context for audio input
+var context = new window.audioContext();
+var analyser = null;
+var valueMax = 0;
+var ctx;
+var mic = document.getElementById('mic');
+var canvas = document.getElementById('visualCanvas');
+if (canvas.getContext){
+    ctx = canvas.getContext('2d');
+    
+}
+
+var getLiveInput = function() {
+ navigator.getUserMedia({audio: true},onStream,onStreamError);
+};
+
+function onStream(stream) 
+{
+  var input = context.createMediaStreamSource(stream);
+  analyser = context.createAnalyser();
+
+  input.connect(analyser);
+  var val = new Uint8Array(analyser.frequencyBinCount);
+  
+  setInterval(function(){
+    
+    analyser.getByteTimeDomainData(val);
+    
+    for (var i = 0; i < val.length; i++) {
+      var value = val[i];
+      var tempValue;
+      if (value > 128) {
+        tempValue = (value - 128);
+      }
+      if (value < 128) {
+        tempValue = (128 - value);
+      }
+      if (tempValue > valueMax) valueMax = tempValue;
+      else if (tempValue < valueMax){
+        valueMax = valueMax - (valueMax/5000);
+      }
+
+    }//end for loop
+    
+    draw(valueMax);
+    
+  }, 50);
+  
+
+
+} //end function
+
+function onStreamError(e) {
+  console.error('Streaming failed: ', e);
+}
+
+function draw(int){
+    
+    ctx.strokeStyle="#FF0000";
+    ctx.clearRect(0,0,300,300);   
+    ctx.beginPath();
+    ctx.arc(150,150,int + 20,0,Math.PI*2,true);
+    ctx.shadowBlur=20;
+    ctx.shadowColor="red";
+    ctx.fillStyle="red";
+    ctx.fill();
+    ctx.stroke();
+    ctx.drawImage(mic, 100, 100, 100, 100);
+}
+
+function hasGetUserMedia() {
+  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+}
+
+
+getLiveInput();
+
+};
+
+</script>
+
+</head>
+<body>
+
+<image id="mic" src="/public/img/mic.png" style="display: none;"></image>
+
+<canvas id="visualCanvas" height="300" width="300 style="border: solid;"></canvas>
+    
+</body>
+</html>

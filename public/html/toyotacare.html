@@ -1,0 +1,314 @@
+<!doctype html>
+<html ng-app="chameleon">
+<head>
+	<title>Demo</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-animate.js"></script>
+	<script type="text/javascript" src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+					<script type="text/javascript">
+var configuration = {
+    sipUser : "webrtc2@reidlab.com",
+    wscUri : "ws://155.212.214.157:7004/ws/webrtc/guest",
+    sipUsername : "webrtc2@reidlab.com",
+    sipPassword : "oracle4webrtc",
+    localAudioId: "localAudio",
+    remoteAudioId : "remoteAudio",
+    ringtoneId : "ringtone",
+    ringbackId: "ringback",
+    localVideoId : "selfVideo",
+    remoteVideoId : "remoteVideo",
+    maxAttemptedCalls : 1,
+    maxActiveCalls : 1,
+    callbacks : {}
+};
+					</script>
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+	<link rel="shortcut icon" href="/public/img/oracle-favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="/public/css/bootstrap-customizations.css">
+</head>
+<body ng-controller="swissArmyKnifeController">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">
+                        <img src="/public/demoassets/toyota/tfs_logo.png" alt="OC Logo" height="50" style="border:3px solid #ff0000; border-radius:2px; background-color: white">
+                        Powered by Oracle Communications WebRTC Session Controller
+                    </a>
+                </div>
+            </div>
+        </div>
+<div class="container">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-tachometer"></span> Customer Care Console</h1>
+	</div>
+
+	
+
+	<div class="row" ng-show="chameleon.calls.active.length > 0">
+	    <div class="col-sm-12">
+	        <div class="panel panel-default">
+	            <div class="panel-heading">
+	                <span class="strong" style="font-size: 24px;">Customer Forms</span>
+	            </div>
+	            <div class="panel-body">
+	                <div class="col-sm-6 ">
+	                    <h3>Loan Request Form</h3>
+	                    <span ng-show="chameleon.activeCallDC != 'OPEN'">Data Channel not opened on this call. Co-Browsing deactivated.</span>
+	                    <button ng-show="chameleon.activeCallDC == 'OPEN' && syncData.form.active === false" class="btn btn-default" type="button" ng-click="pushForm1()">Push form to Customer</button>
+	                    <button ng-show="chameleon.activeCallDC == 'OPEN' && syncData.form.active === true" class="btn btn-default" type="button" ng-click="resetForm1()">Reset</button>
+	                    <span ng-show="syncData.form.active === true"><br>
+	                        <br>Click the <button class="btn btn-danger btn-sm" type="button" ><span class="fa fa-exclamation-circle"></span></button> button to pull the customer's attention to a particular form entry. <br>
+    	                    <br><button class="btn btn-danger btn-xs" type="button" ><span class="fa fa-exclamation-circle" ng-click="focus('entry1')"></span></button><strong> Make</strong>:  <input type="text" class="form-control" ng-model="syncData.form.make"></input>
+    	                    <br><button class="btn btn-danger btn-xs" type="button" ><span class="fa fa-exclamation-circle" ng-click="focus('entry2')"></span></button><strong> Model</strong>:  <input type="text" class="form-control" ng-model="syncData.form.model"></input>
+    	                    <br><button class="btn btn-danger btn-xs" type="button" ><span class="fa fa-exclamation-circle" ng-click="focus('entry3')"></span></button><strong> New or Used</strong>:  <input type="text" class="form-control" ng-model="syncData.form.newOrUsed"></input>
+    	                    <br><button class="btn btn-danger btn-xs" type="button" ><span class="fa fa-exclamation-circle" ng-click="focus('entry4')"></span></button><strong> Color</strong>:  <input type="text" class="form-control" ng-model="syncData.form.color"></input>
+    	                    <br><button class="btn btn-danger btn-xs" type="button" ><span class="fa fa-exclamation-circle" ng-click="focus('entry5')"></span></button><strong> Options</strong>:  <input type="text" class="form-control" ng-model="syncData.form.options"></input>
+    	                    <br><button class="btn btn-danger btn-xs" type="button" ><span class="fa fa-exclamation-circle" ng-click="focus('entry6')"></span></button><strong> Loan Amount</strong>:  <input type="text" class="form-control" ng-model="syncData.form.amount"></input>
+    	                    <br>Waiting for customer to submit the form...
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	
+		<div class="row">
+	    <div class="col-sm-6" ng-show='chameleon.activeCallVideo == "SENDRECV" || chameleon.activeCallVideo == "SENDONLY"'>
+	        <div class="well">
+	            <strong>Local Video</strong><br>
+
+	                <video height="384" id="selfVideo" autoplay muted></video>
+
+	        </div>
+	    </div>
+	    <div class="col-sm-6" ng-show='chameleon.activeCallVideo == "SENDRECV" || chameleon.activeCallVideo == "RECVONLY"'>
+	        <div class="well">
+	            <strong>Remote Video</strong><br>
+	                <video width="515" height="384" id="remoteVideo" autoplay></video>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<div class="row" ng-show="chameleon.signallingStateId == 4">
+	    <div class="col-lg-12">
+    	    <div class="panel panel-default">
+    	        <div class="panel-heading">
+    	            <span class="strong" style="font-size: 24px;">Call</span>
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-4">
+                    <h4>Customer Data</h4>
+                        <div class="well">
+                            <span ng-hide="chameleon.isIncomingCall === true || chameleon.isActiveCall === true">No active call.</span>
+                            <div ng-show="chameleon.isIncomingCall === true || chameleon.isActiveCall === true">
+                                <strong>First Name</strong>: Joe
+                                <br><strong>Last Name</strong>: Plumber
+                                <br><strong>Account ID</strong>: 5583077293
+                                <br><strong>Account Status</strong>: Active
+                                <br><strong>Current Model</strong>: 2006 Tocoma
+                                <br><strong>Service History</strong>: Clean
+                                <br><strong>Warranty Status</strong>: Expired
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <h4>Incoming</h4>
+                        <div class="well">
+                            <strong>From</strong>: {{chameleon.incomingCaller}}
+                            <span ng-show="chameleon.isIncomingCall === true && chameleon.signallingStateId == 4" class="swing animated fa fa-bell pull-right" style="font-size: 50px; color: #d9534f"></span>
+                            <br><br><br><br>
+                            <div class="btn-group">
+                                <button ng-disabled="chameleon.isIncomingCall === false" class="btn btn-success" type="button" ng-click="answerIncomingCall()"><span class="fa fa-thumbs-up"></span> Answer</button>
+                                <button ng-disabled="chameleon.isIncomingCall === false" class="btn btn-danger" type="button" ng-click="declineIncomingCall()"><span class="fa fa-thumbs-down"></span> Ignore</button>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 pull-right">
+                        <h4>Active Call Info</h4>
+                        <div class="well">
+                            <strong>Status</strong>: {{chameleon.activeCallState}} {{chameleon.activeCallDirection}}
+                            <br><strong>To</strong>: {{chameleon.activeCallee}}
+                            <br><strong>From</strong>: {{chameleon.activeCaller}}
+                            <br><strong>Audio</strong>: {{chameleon.activeCallAudio}}
+                            <br><strong>Video</strong>: {{chameleon.activeCallVideo}}
+                            <br><strong>Data</strong>: {{chameleon.activeCallDC}}
+                            <br><br>
+                            <button ng-disabled="chameleon.isActiveCall === false" class="btn btn-info" type="button" ng-click="hangupCall()"><span class="fa fa-times-circle"></span> Hang Up</button>
+                        </div>
+                    </div>
+                </div>
+    		</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<!-- User INFORMATION -->
+		<div class="col-sm-6">
+			<div class="well">
+                <h3></span>Agent Configuration</span></h3>
+                <strong>User</strong>: <input type="text" class="form-control" name="fname" ng-disabled="chameleon.signallingStateId >= 1" value="username1234"></input>
+
+                <strong>Password</strong>: <input type="password" class="form-control" name="fname" ng-disabled="chameleon.signallingStateId >= 1" value="asdfjas"></input>
+			</div>
+		</div>
+		
+		<div class="col-sm-6">
+	        <div class="well">
+	            <h3>Advisor Login Status 
+	                <span ng-hide="chameleon.signallingStateId > 0" class="fa fa-wrench pull-right" style="font-size: 150px; color: #5bc0de"></span>
+	                <span ng-show="chameleon.signallingStateId == 3" class="fa fa-magic pull-right" style="font-size: 150px; color: #f0ad4e"></span>
+	                <span ng-show="chameleon.signallingStateId == 4" class="fa fa-check-circle pull-right" style="font-size: 150px; color: #5cb85c"></span>
+	                <span ng-show="chameleon.signallingStateId == 1" class="fa fa-warning pull-right" style="font-size: 150px; color: #d9534f"></span>
+	                <span ng-show="chameleon.signallingStateId == 2" class="fa fa-unlock-alt pull-right" style="font-size: 150px; color: #428bca"></span>
+                </h3>
+                <strong>Status:  </strong>{{chameleon.signallingState}}
+                <br><br><br><br><br><br>
+                
+                <div class="alert alert-info" ng-show="chameleon.signallingStateId == 0">
+                    <span><strong>Log in to activate.</strong></span>
+                </div>
+                
+	            <div class="alert alert-danger" ng-show="chameleon.signallingStateId == 1">
+	                <span><strong>Error:  </strong>{{chameleon.signallingError.code}} {{chameleon.signallingError.reason}}</span>
+	            </div>
+	            
+	            <div class="alert alert-warning" ng-show="chameleon.signallingStateId == 3">
+	                <span><strong>Wait for it...</strong></span>
+	            </div>
+
+                <div class="alert alert-info" ng-show="chameleon.signallingStateId == 2">
+                    <span><strong>Session ID:  </strong>{{chameleon.wscSessionObj.getSessionId()}}</span>
+                </div>
+                
+                <div class="alert alert-success" ng-show="chameleon.signallingStateId == 4">
+                    <span><strong>Session ID:  </strong>{{chameleon.wscSessionObj.getSessionId()}}</span>
+                </div>
+                
+	            <button type="button" class="btn btn-default-oracle" ng-hide="chameleon.signallingStateId == 1 || chameleon.signallingStateId == 2 || chameleon.signallingStateId == 4" ng-disabled="chameleon.signallingStateId == 3" ng-click="wscInit()"><span class="fa fa-sign-in"> </span> Activate</button>
+                <button type="button" class="btn btn-default-oracle" ng-show="chameleon.signallingStateId == 1" ng-click="wscInit()"><span class="fa fa-refresh"> </span> Retry</button>
+                <button type="button" class="btn btn-default-oracle" ng-show="chameleon.signallingStateId == 2" ng-click="wscInit()"><span class="fa fa-refresh"> </span> Login</button>
+                <button type="button" class="btn btn-default-oracle" ng-show="chameleon.signallingStateId == 4" ng-click="wscStop()"><span class="fa fa-power-off"> </span> Log Out</button>
+	            <br>
+	        </div>
+	    </div>
+		
+	</div>
+
+	<div class="row" ng-show="chameleon.calls.all.length > 0">
+	    <div class="col-sm-12">
+            <div class="well">
+                <tabset justified="true">
+                    <tab class="tab">
+                        <tab-heading>
+                            <h4>All Calls</h4>
+                        </tab-heading>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Direction</th>
+                                    <th>Caller</th>
+                                    <th>Callee</th>
+                                    <th>Status</th>
+                                    <th>Duration (seconds)</th>
+                                    <th>Ended</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="call in chameleon.calls.all">
+                                    <td>{{call.direction}}</td>
+                                    <td>{{call.caller}}</td>
+                                    <td>{{call.callee}}</td>
+                                    <td>{{call.callState.state}}</td>
+                                    <td>{{call.duration / 1000}}</td>
+                                    <td>{{call.terminator}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </tab>
+                    <tab class="tab">
+                        <tab-heading>
+                            <h4>Current Active Calls</h4>
+                        </tab-heading>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Direction</th>
+                                    <th>Caller</th>
+                                    <th>Callee</th>
+                                    <th>Call Time</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="call in chameleon.calls.active">
+                                    <td>{{call.direction}}</td>
+                                    <td>{{call.caller}}</td>
+                                    <td>{{call.callee}}</td>
+                                    <td>{{call.callState.state}}</td>
+                                    <td>
+                                        <button class="btn btn-info" type="button" ng-click="hangupCall(call)"><span class="fa fa-times-circle"></span> Hang Up</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </tab>
+                    <tab class="tab">
+                        <tab-heading>
+                            <h4>Current Call Attempts</h4>
+                        </tab-heading>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Direction</th>
+                                    <th>Caller</th>
+                                    <th>Callee</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="call in chameleon.calls.incoming">
+                                    <td>{{call.direction}}</td>
+                                    <td>{{call.caller}}</td>
+                                    <td>{{call.callee}}</td>
+                                    <td>{{call.callState.state}}</td>
+                                    <td>
+                                        <button class="btn btn-success" type="button" ng-click="answerIncomingCall(call)"><span class="fa fa-thumbs-up"></span> Answer</button>
+                                        <button class="btn btn-danger" type="button" ng-click="declineIncomingCall(call)"><span class="fa fa-thumbs-down"></span> Ignore</button>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="call in chameleon.calls.outgoing">
+                                    <td>{{call.direction}}</td>
+                                    <td>{{call.caller}}</td>
+                                    <td>{{call.callee}}</td>
+                                    <td>{{call.callState.state}}</td>
+                                    <td>
+                                        <button class="btn btn-warning" type="button" ng-click="cancelOutgoingCall(call)"><span class="fa fa-ban"></span> Cancel</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </tab>
+                </tabset>
+            </div>
+	    </div>
+	</div>
+	</div>
+    <audio id="ringtone" preload=auto loop src="/public/media/ringtones/solarium.ogg"></audio>
+    <audio id="ringback" preload=auto loop src="/public/media/ringtones/roboto.ogg"></audio>
+    <audio id="localAudio" muted></audio>
+    <audio id="remoteAudio" autoplay></audio>
+</div>
+</body>
+<script type="text/javascript" src="/public/js/chameleonBeta.js"></script>
+<script type="text/javascript" src="/public/js/toyotacare.js"></script>
+</html>

@@ -1,0 +1,57 @@
+#expressBar{
+	background-color: #d40000;
+	background-image:url('/public/demoassets/genericbank/button_grad.gif');
+	background-repeat:repeat-x;
+	opacity:0.95;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+	filter:alpha(opacity=95);
+	height:72px;
+	width:100%;
+	position:fixed;
+	bottom:0;
+	left:0;
+	z-index:200 !important;
+}
+#expressBarContent{
+	height:72px;
+	width:980px;
+	margin-left:50%;
+	z-index:201 !important;
+	position:fixed;
+	left:-490px;
+	bottom:0;
+	color:#FFF;
+	font-weight:bold;
+}
+#expressBarContent h2
+{
+	font-size:180%;
+	padding-left:0 !important;
+	float:left;
+	line-height:20px;
+	padding: 25px 40px 20px 20px;
+	font-weight: normal;
+	color:#FFF !important;
+}
+#expressBarContent ul, #expressBarContent li {display: inline;}
+.expressBtn{
+	float:left;
+	padding:30px 30px 30px 30px;
+	background:url('/public/demoassets/genericbank/opaque_divider2.gif');
+	background-repeat:no-repeat;
+	background-position:right;
+}
+.expressBtn.last{
+	background:none;
+}
+#expressBarContent a{
+	color:#FFF !important;	
+	text-decoration:none;
+}
+#expressBarContent a:hover,#expressBarContent a:active,#expressBarContent a:focus{
+	background-color: #626469 !important;
+    background: url("/public/demoassets/genericbank/bg_main_nav_on.gif") left top repeat-x;
+}
+#fiveBoxDisclosureHygiene{
+	margin-bottom:75px !important;	
+}

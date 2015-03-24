@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/public/css/galaxynexus.css"/>
+    <script type="text/javascript">
+
+    window.onload = function () {
+        updateClock();
+        setInterval('updateClock()', 1000 );
+    };
+
+    </script>
+    <script type="text/javascript" src="/public/js/jquery-1.8.0.js"></script>
+    <script type="text/javascript" src="/public/js/jquery.animate-shadow.js"></script>
+    <script type="text/javascript" src="/public/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/public/js/chameleon.js"></script>
+    <script type="text/javascript" src="/public/js/galaxynexus.js"></script>
+    <meta name="publisher" content="Reid Stidolph"/>
+    <title>Galaxy Nexus Webphone</title>
+  </head>
+    <body style="margin:0px">
+
+<% if (page && page != '' && page != null && typeof page != 'undefined' && page != 'undefined') {%>
+
+<div id="page" style="padding:0px; overflow-x:hidden">
+    <div id="overlayPage">
+        <iframe src="<%= (page) %>" seamless="seamless" width=100% height=100% ></iframe>
+    </div>
+            
+<%}%>
+
+    <div id="container">
+    <div id="titleBar">
+       <span>Phone 2 GO!</span>
+    </div>
+    <div id="phoneContainer">
+    <div id="display">
+       <div id="bottombar">
+             <div class="button" style="left:90px; top:5px; width:40px; height:20px; border-radius:20px">
+               <button name="goToHome" class="button" type="button" onclick="goToHome()">Click</button>
+             </div>
+       </div>
+       <div id="topbar">
+           <span id=timeDisplay style="position:absolute; right:1px; color:#1e92b6; font-size:11px; margin:2px">&nbsp;</span>
+           <img src="/public/img/galaxynexus/battery.png" style="position:absolute; height:15px; width:15px; right:32px;"/>
+           <img src="/public/img/galaxynexus/cellnetwork.png" style="position:absolute; height:15px; width:15px; right:47px;"/>
+           <span id=txtRegStatus style="position:absolute; left:1px; color:#1e92b6; font-size:11px; margin:2px">Inactive</span>
+       </div>
+       <div id="screens">
+          <div id="homescreen">
+             <div class="button" style="left:12px; top:300px">
+                <button name="goToPhone" class="button" type="button" onclick="goToPhone()">Click</button>
+             </div>
+             <div class="button" style="left:16px; top:228px">
+                <button name="goToCamera" class="button" type="button" onclick="goToCamera()">Click</button>
+             </div>
+             <div class="button" style="left:130px; top:300px">
+                <button name="goToSMS" class="button" type="button" onclick="goToSms()">Click</button>
+             </div>
+             <div class="button" style="left:12px; top:300px">
+                <button name="goToPhone" class="button" type="button" onclick="goToPhone()">Click</button>
+             </div>
+             <div class="button" style="left:169px; top:300px">
+                <button name="goToGoogle" class="button" type="button" onclick="window.open('http://www.google.com');">Click</button>
+             </div>
+             <div class="button" style="left:50px; top:300px">
+                <button name="goToGoogle" class="button" type="button" onclick="goToContacts()">Click</button>
+             </div>
+          </div>
+          <div id="dialer">
+             <input id=txtPhoneNumber maxlength="11" onkeypress='validateKey(event)'type="text" style="position:absolute; background:transparent; border-color:transparent; left:0px; top:48px; height:24px; width:180px; font-size:24px; color:white; font-weight:normal; font-style:normal; text-align:center;">
+             <div class="button" style="right:0px; top:43px">
+                <button name="backKey" class="button" onclick="delDigit()">
+             </div>
+
+             <div class="dialerButton" style="left:0px; top:95px">
+                <button name="oneKey" class="dialerButton" onclick="addDigit(1)">
+             </div>
+             <div class="dialerButton" style="left:73px; top:95px">
+                <button name="twoKey" class="dialerButton" onclick="addDigit(2)">
+             </div>
+             <div class="dialerButton" style="left:146px; top:95px">
+                <button name="threeKey" class="dialerButton" onclick="addDigit(3)">
+             </div>
+             <div class="dialerButton" style="left:0px; top:143px">
+                <button name="fourKey" class="dialerButton" onclick="addDigit(4)">
+             </div>
+             <div class="dialerButton" style="left:73px; top:143px">
+                <button name="fiveKey" class="dialerButton" onclick="addDigit(5)">
+             </div>
+             <div class="dialerButton" style="left:146px; top:143px">
+                <button name="sixKey" class="dialerButton" onclick="addDigit(6)">
+             </div>
+             <div class="dialerButton" style="left:0px; top:191px">
+                <button name="sevenKey" class="dialerButton" onclick="addDigit(7)">
+             </div>
+             <div class="dialerButton" style="left:73px; top:191px">
+                <button name="eightKey" class="dialerButton" onclick="addDigit(8)">
+             </div>
+             <div class="dialerButton" style="left:146px; top:191px">
+                <button name="nineKey" class="dialerButton" onclick="addDigit(9)">
+             </div>
+             <div class="dialerButton" style="left:0px; top:239px">
+                <button name="starKey" class="dialerButton" onclick="addDigit('*')">
+             </div>
+             <div class="dialerButton" style="left:73px; top:239px">
+                <button name="zeroKey" class="dialerButton" onclick="addDigit(0)">
+             </div>
+             <div class="dialerButton" style="left:146px; top:239px">
+                <button name="poundKey" class="dialerButton" onclick="addDigit('#')">
+             </div>
+             <div class="dialerButton" style="left:73px; top:295px">
+                <button name="btnCall" class="dialerButton" onclick="makeCall();"/>
+             </div>
+          </div>
+          <div id="sms">
+          </div>
+          <div id="camera" style="overflow-x:hidden">
+             <div id="divVideoLocalCamera" style="height:273px">
+                <video height="273px" id="cameraScreenVideo" style="position:absolute; left:-75px; overflow-x:hidden;" autoplay="autoplay"></video>
+             </div>
+             <img src="/public/img/galaxynexus/camera.png" style="position:absolute; bottom:0px;">
+          </div>
+          <div id="contacts">
+          </div>
+          <div id="incomingCall">
+             <div id="divVideoLocalIncomingCall" style="height:247px">
+                <video height="247px" id="incomingCallScreenVideo" style="position:absolute; left:-75px; overflow-x:hidden; background-color:#000000" autoplay="autoplay" ></video>
+             </div>
+             <div id="incomingCallIdBar" style="background-color:black; opacity:0.5; position:absolute; top:0px; width:220px; height:60px;"></div>
+             <span id="txtCallerId" style="position:absolute; top:25px; left:10px; color:white; font-weight:normal; font-size:20px; font-style:normal; text-align:right">Unknown</span>
+             <div id="incomingCallStatusBar" style="background-color:#1e92b6; opacity:0.5; position:absolute; top:60px; width:220px; height:25px;" >
+             </div>
+             <span id="txtIncCallStatus" style="position:absolute; top:67px; right:10px; color:white; font-weight:normal; font-size:11px; font-style:normal; text-align:right">INCOMING CALL</span>
+             <div style="position:absolute; bottom:0px; background-color:#000000; height:175px; width:220px;">
+                <div class="animatedRings" style="position:absolute; top:10px; left:35px">
+                   <div id="answerPhone"></div>
+		   <div class="ring1"></div>
+                   <div class="ring2"></div>
+                   <div class="ring3"></div>
+                   <div class="ring4"></div>
+                   <div class="ring5"></div>
+                </div>
+             </div>
+             <div class="button" style="left:92px; bottom:68px;">
+                <button name="answerCall" class="button" type="button" onclick="answerCall()">Click</button>
+             </div>
+          </div>
+          <div id="inCall" style="overflow-x:hidden;">
+             <img src="/public/img/galaxynexus/inCallBottom.png" style="position:absolute; bottom:0px;">
+             <div id="divVideoLocalInCall" style="height:247px">
+                <video muted height="247px" id="inCallScreenVideoLocal" style="position:absolute; left:-75px; overflow-x:hidden; background-color:#000000" autoplay="autoplay"></video>
+                <video height="247px" id="inCallScreenVideoRemote" style="position:absolute; left:-75px; overflow-x:hidden; background-color:#000000" autoplay="autoplay"></video>
+             </div>
+             <div id="callStatusBar" style="background-color:black; opacity:0.5; position:absolute; top:0px; width:220px; height:60px;" >
+             </div>
+             <span id=txtCallStatus style="position:absolute; background:transparent; border-color:transparent; left:5px; top:8px; height:24px; width:180px; font-size:18px; color:white; font-weight:normal; font-style:normal; text-align:left;">Calling...</span>
+             <span id=txtRemoteParty style="position:absolute; background:transparent; border-color:transparent; left:5px; top:32px; height:24px; width:180px; font-size:18px; color:white; font-weight:normal; font-style:normal; text-align:left;">Unknown</span>
+             <span id=txtSessionTime style="position:absolute; background:transparent; border-color:transparent; right:5px; top:20px; font-size:12px; color:white; font-weight:normal; font-style:normal; text-align:left;"></span>
+             <div class="endCallButton" style="bottom:46px">
+                <button name="endCall" class="endCallButton" onclick="terminateCall();"/>
+             </div>
+          </div>
+          <div id="lockScreen">
+             <div id="lockScreenUnderlay"></div>
+             <span id="lockScreenTime" style="position:absolute; background:transparent; border-color:transparent; right:20px; top:30px; font-size:50px; font-weight:200; color:white">&nbsp;</span>
+             <span id="lockScreenDate" style="position:absolute; background:transparent; border-color:transparent; right:20px; top:80px; font-size:12px; font-weight:100; color:white">&nbsp;</span>
+             <div class="animatedRings" style="position:absolute; bottom:10px; left:35px">
+                <div id="unlockPhone"></div>
+                <div class="ring1"></div>
+                <div class="ring2"></div>
+                <div class="ring3"></div>
+                <div class="ring4"></div>
+                <div class="ring5"></div>
+             </div>
+             <div id="lockScreenOverlay"></div>
+             <div class="button" style="left:92px; bottom:63px;">
+                <button name="unlockPhone" class="button" type="button" onclick="unlockPhone()">Click</button>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div id="galaxyNexusShell"></div>
+    <div id="displayBackground"></div>
+    <div id="phoneFooter">
+       <img src="/public/img/galaxynexus/poweredBy.png" style="position:absolute; height:15px; top:8px; left:50px">
+       <img src="/public/img/galaxynexus/webrtc.png" style="position:absolute; height:12px; top:8px; left:238px">
+       <img src="/public/img/galaxynexus/oracle-comm.gif" style="position:absolute; height:30px; left:124px">
+    </div>
+    <audio id="key0" preload=auto src="/public/media/soundfx/Key0.ogg"></audio>
+    <audio id="key1" preload=auto src="/public/media/soundfx/Key1.ogg"></audio>
+    <audio id="key2" preload=auto src="/public/media/soundfx/Key2.ogg"></audio>
+    <audio id="key3" preload=auto src="/public/media/soundfx/Key3.ogg"></audio>
+    <audio id="key4" preload=auto src="/public/media/soundfx/Key4.ogg"></audio>
+    <audio id="key5" preload=auto src="/public/media/soundfx/Key5.ogg"></audio>
+    <audio id="key6" preload=auto src="/public/media/soundfx/Key6.ogg"></audio>
+    <audio id="key7" preload=auto src="/public/media/soundfx/Key7.ogg"></audio>
+    <audio id="key8" preload=auto src="/public/media/soundfx/Key8.ogg"></audio>
+    <audio id="key9" preload=auto src="/public/media/soundfx/Key9.ogg"></audio>
+    <audio id="keyAsterisk" preload=auto src="/public/media/soundfx/KeyAsterisk.ogg"></audio>
+    <audio id="keySharp" preload=auto src="/public/media/soundfx/KeySharp.ogg"></audio>
+    <audio id="click" preload=auto src="/public/media/soundfx/S_HW_Touch.ogg"></audio>
+    <audio id="ringtone" preload=auto loop src="/public/media/ringtones/Solarium.ogg"></audio>
+    <audio id="ringbackTone" preload=auto loop src="/public/media/ringtones/ringbackTone.ogg"></audio>
+   </div>
+   </div>
+
+<%if (page && page != '' && page != null && typeof page != 'undefined' && page != 'undefined') {%>
+
+  </div>
+            
+<%}%>
+
+
+   </body>
+</html>
+
+
